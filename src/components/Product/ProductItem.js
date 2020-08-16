@@ -4,6 +4,7 @@ class ProductItem extends Component {
   
     render() {
       // var { product} = this.props;
+      /// e chỉnh sửa code file này
         return (
          
           <div className="col-xs-2 col-sm-2 col-md-2 col-lg-2">
