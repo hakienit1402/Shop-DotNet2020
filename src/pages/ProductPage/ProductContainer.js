@@ -10,7 +10,7 @@ import ProductItem from './ProductItem';
     } else {
       Object.assign(productItem, { quanlity: 1 });
       setCart([...cart, productItem]);
-      window.location.reload()
+      // window.location.reload()
     }
   };
   useEffect(() => {
