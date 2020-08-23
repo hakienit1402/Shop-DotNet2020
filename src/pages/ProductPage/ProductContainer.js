@@ -1,4 +1,5 @@
 import React, {useEffect,useState} from 'react'
+import {message} from 'antd'
 import context from './../../context';
 import ProductItem from './ProductItem';
  const ProductContainer = ({products}) => {
@@ -7,12 +8,21 @@ import ProductItem from './ProductItem';
   const onAddToCart = (productItem) => {
     let dataIndex = cart?.findIndex((x) => x.id === productItem.id);
     if (dataIndex !== -1) {
-      alert('Sản phẩm đã có trong giỏ hàng')
+      // alert('Sản phẩm đã có trong giỏ hàng')
+      message.warning({ content: 'Sản phẩm đã có trong giỏ hàng', style: {
+        marginTop: '25vh', fontSize:"14px" , float:'right', marginRight: 10
+      }, });
     } else {
+     
       Object.assign(productItem, { quanlity: 1 });
       setCart([...cart, productItem]);
       setCount(count+1);
-      window.location.reload()
+      message.success({ content: 'Thêm vào giỏ thành công !', style: {
+        marginTop: '25vh', fontSize:"14px" ,
+      }, });
+      setTimeout(() => {
+        window.location.reload()
+      }, 200);
     }
   };
   useEffect(() => {

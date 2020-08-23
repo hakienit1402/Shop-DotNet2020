@@ -70,7 +70,11 @@ const CartPage = (props) => {
               <tbody>
                 {dataInitial && dataInitial.map((item, idx) => 
                     <tr key={item.id}>
-                      <td>{item.name}</td>
+                      <td>
+                        {item.name}
+                        <img src={item.image} alt={item.name} style={{width:50,height:70, marginLeft:100}}/>
+                      
+                      </td>
                       <td>{formatNumber(item.price)}</td>
                       <td>
                         <InputNumber
@@ -80,6 +84,7 @@ const CartPage = (props) => {
                         />
                       </td>
                       <td>{formatNumber(item.quanlity * item.price)}</td>
+                      <td><Button type="button"> Xóa </Button> </td>
                     </tr>
                 )}
               </tbody>

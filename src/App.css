@@ -714,3 +714,8 @@ input:focus {
   padding-right: 8px;
   padding-left: 0;
 }
+/* cartpage */
+.table-cart{
+  overflow: auto;
+  height: 450px;
+}

@@ -33,7 +33,7 @@ const Nav = (props) => {
       <Menu.Item>
         <Link to="/account/customerOrder">My Orders</Link>
       </Menu.Item>
-      <Menu.Item onClick={() => logout}>
+      <Menu.Item onClick={logout}>
         <Link to="/">Log Out</Link>
       </Menu.Item>
     </Menu>
@@ -46,7 +46,7 @@ const Nav = (props) => {
       <Menu.Item>
         <Link to="/account/customerInfo">Admin Account</Link>
       </Menu.Item>
-      <Menu.Item onClick={() => logout}>
+      <Menu.Item onClick={logout}>
         <Link to="/">Log Out</Link>
       </Menu.Item>
     </Menu>
