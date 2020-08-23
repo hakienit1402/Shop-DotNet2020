@@ -1,4 +1,4 @@
-import React, { useState,useCallback } from "react";
+import React, { useState,useContext,useEffect } from "react";
 import "./App.css";
 import Nav from "./components/Header/Nav";
 import Footer from "./components/Footer/Footer";
@@ -14,18 +14,25 @@ import RegisterPage from "./pages/Login-Register/RegisterPage";
 import ScrollToTop from "./ScrollToTop";
 import ProductDetailPage from "./pages/ProductPage/ProductDetailPage";
 import { BackTop } from "antd";
+import context from './context';
 function App() {
-  const [count, setCount] = useState()
-  const callBackCount =  (data) => {
-    setCount(data)
-  }
-  // const callBackCount = useCallback((data) => {
+  const [count, setCount] = useState(JSON.parse(localStorage.getItem("COUNT")) ? JSON.parse(localStorage.getItem("COUNT")) : 0);
+  // const callBackCount = (data) => {
   //   setCount(data)
-  // }, [])
+  // }
+  useEffect(() => {
+    const value = JSON.parse(localStorage.getItem("COUNT"));
+    console.log(value)
+    setCount(value)
+  },[]);
   return (
     <Router>
-      <ScrollToTop />
-      <Nav count={count}/>
+      <ScrollToTop />  
+      {/* <context.Provider value={count}> */}
+      <Nav 
+      count={count}
+      />
+     
       <main className="main">
         <Switch>
           <Route path="/" exact={true}>
@@ -38,7 +45,9 @@ function App() {
           {/* <Route path="/cart" component={CartPage} /> */}
           <Route
             path="/cart"
-            component={() => <CartPage parentCallback={callBackCount} />}
+            component={() => <CartPage 
+              // callBackCount={callBackCount}
+             />}
           />
           <Route path="/account" component={CustomerPage} />
           <Route path="/admin" component={AdminPage} />
@@ -50,8 +59,9 @@ function App() {
       </main>
       <BackTop />
       <Footer />
+      {/* </context.Provider>  */}
     </Router>
-    // </MyContext.Provider>
+  
   );
 }
 

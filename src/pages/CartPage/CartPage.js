@@ -1,17 +1,14 @@
-import React, { useState, useEffect, useMemo, useCallback } from "react";
-import { Icon, Row, Divider, InputNumber, Button, Empty } from "antd";
+import React, { useState, useEffect,useMemo, useCallback } from "react";
+import { Icon, Row, Divider, InputNumber, Button } from "antd";
 import ProductSlide from "../ProductPage/ProductSlide";
 import { DeleteOutlined } from "@ant-design/icons";
 import { Toast } from "react-bootstrap";
 const CartPage = (props) => {
-  const { parentCallback } = props;
+  // const { parentCallback } = props;
   const [dataInitial, setDataInitial] = useState([]);
   const sum = JSON.parse(localStorage.getItem("SUM"));
-  const [dataAfterUpdate, setDataAfterUpdate] = useState(
-    dataInitial ? dataInitial : []
-  );
+  const [dataAfterUpdate, setDataAfterUpdate] = useState(dataInitial ? dataInitial : []);
   const [total, setTotal] = useState(sum ? sum : 0);
-  const [count, setCount] = useState(0);
   const formatNumber = (num) => {
     return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
   };
@@ -23,94 +20,72 @@ const CartPage = (props) => {
         x.quanlity = val;
       }
       dataAfterUpdate.push(x);
-      total += x.quanlity * x.price;
-
+      total += x.quanlity * x.price;   
       setTotal(total);
       localStorage.setItem("CART", JSON.stringify(dataAfterUpdate));
     });
     localStorage.setItem("SUM", JSON.stringify(total));
-    window.location.reload()
   };
   //effect total
   useEffect(() => {
-    let data = JSON.parse(localStorage.getItem("CART"));
-    let total = 0;
-    data &&
-      data.map((x) => {
-        total += x.quanlity * x.price;
-      });
-    setTotal(total);
-    setDataInitial(data);
-    localStorage.setItem("SUM", JSON.stringify(total));
-  }, []);
-
-  // effect count
-  useEffect(() => {
-    let data = JSON.parse(localStorage.getItem("CART"));
-    let count = 0;
-    data.map((x) => {
-      count += x.quanlity;
-      setCount(count);
+    let data = JSON.parse(localStorage.getItem("CART"))
+    let total = 0 
+    data && data.map((x) => {
+      total += x.quanlity * x.price;
     });
-    parentCallback(count);
-    localStorage.setItem("COUNT", JSON.stringify(count));
-  }, [count]);
+    setTotal(total)
+    setDataInitial(data)
+    localStorage.setItem("SUM", JSON.stringify(total));
+  }, [])
+
+// effect count
+  // useEffect(() => {
+  //   let data = JSON.parse(localStorage.getItem("CART"))
+  //   let count = 0;
+  //   data.map((x) => {
+  //     count += x.quanlity;
+  //     setCount(count);
+  //   });
+  //   // parentCallback(count)
+  //   localStorage.setItem("COUNT", JSON.stringify(count));
+  // }, [count])
+
 
   return (
     <div className="container cartpage">
       <Row className="cart-main">
         <div className="col-lg-8">
           <div className="main-heading">Shopping Cart</div>
-          {/* content */}
-          {total == 0 ? (
-            <Empty
-              image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
-              imageStyle={{
-                height: 200,
-              }}
-              description={
-                <span>
-                  Chưa có sản phẩm
-                </span>
-              }
-            >
-              <Button type="primary">Shop Now</Button>
-            </Empty>
-          ) : (
-            <div className="table-cart">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Product</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Thành tiền</th>
-                    <th>Xóa</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {dataInitial &&
-                    dataInitial.map((item, idx) => (
-                      <tr key={item.id}>
-                        <td>{item.name}</td>
-                        <td>{formatNumber(item.price)}</td>
-                        <td>
-                          <InputNumber
-                            min="1"
-                            defaultValue={item.quanlity}
-                            onChange={(val) => onChangeQuanlity(val, item.id)}
-                          />
-                        </td>
-                        <td>{formatNumber(item.quanlity * item.price)}</td>
-                      </tr>
-                    ))}
-                </tbody>
-              </table>
-              <p>{total}</p>
-            </div>
-          )}
-
-          {/* end content */}
+          <div className="table-cart">
+            <table>
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                  <th>Thành tiền</th>
+                  <th>Xóa</th>
+                </tr>
+              </thead>
+              <tbody>
+                {dataInitial && dataInitial.map((item, idx) => 
+                    <tr key={item.id}>
+                      <td>{item.name}</td>
+                      <td>{formatNumber(item.price)}</td>
+                      <td>
+                        <InputNumber
+                          min="1"
+                          defaultValue={item.quanlity}
+                          onChange={(val) => onChangeQuanlity(val, item.id)}
+                        />
+                      </td>
+                      <td>{formatNumber(item.quanlity * item.price)}</td>
+                    </tr>
+                )}
+              </tbody>
+            </table>
+            <p>{total}</p>
+          </div>
         </div>
         <div className="col-lg-4">
           <div className="cart-totals">
