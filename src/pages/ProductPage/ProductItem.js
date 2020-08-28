@@ -6,16 +6,16 @@ import { Link } from "react-router-dom";
          <div className="col-xs-2 col-sm-2 col-md-2 col-lg-2">
          <div className="product-item">
           <div className="pi-img-wrapper">
-            <img src={product.image} className="img-responsive" alt="#" />
+            <img src={product.hinhanh} className="img-responsive" alt="#" />
 
             <div></div>
           </div>
-          <Link to={"/productdetail/" + product.id}>
+          <Link to={"/productdetail/" + product.idsp}>
             <h3 style={{ marginTop: 10 }}>
-              <p>{product.name}</p>
+              <p>{product.tensp}</p>
             </h3>
           </Link>
-          <div className="pi-price">{product.price}</div>
+          <div className="pi-price">{product.gia}</div>
           <p className="btn add2cart" onClick={()=>onAddToCart(product)}>
             Add to cart
           </p>

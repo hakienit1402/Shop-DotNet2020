@@ -10,17 +10,25 @@ import ProductContainerLimit from './../ProductPage/ProductContainerLimit';
 const HomePage = () =>{
  
   const [products,setProducts] = useState([])
-  const [cart,setCart] = useState(JSON.parse(localStorage.getItem("CART")) ? JSON.parse(localStorage.getItem("CART")) : []);
-  const onAddToCart = (productItem) => {
-    setCart([...cart,productItem])
-  };
+  // const [cart,setCart] = useState(JSON.parse(localStorage.getItem("CART")) ? JSON.parse(localStorage.getItem("CART")) : []);
+  // const onAddToCart = (productItem) => {
+  //   setCart([...cart,productItem])
+  // };
+  // useEffect(() => {
+  //   axios.get(`http://localhost:3000/products?_page=1&_limit=12`).then((res) => {
+  //     setProducts(res.data);
+  //   }); 
+  //   localStorage.setItem("CART", JSON.stringify(cart));
+  // }, [cart]);
   useEffect(() => {
-    axios.get(`http://localhost:3000/products?_page=1&_limit=12`).then((res) => {
+    const fetchData = async () => {
+      const res = await axios.get(`http://localhost:61017/api/sanphams`);
       setProducts(res.data);
-    }); 
-    localStorage.setItem("CART", JSON.stringify(cart));
-  }, [cart]);
-
+      console.log(res)
+      console.log(res.data);
+    };
+    fetchData();
+  }, []);
     return (
         <div className="container homepage">
           <Slide />
@@ -37,7 +45,10 @@ const HomePage = () =>{
             TOP PRODUCT
           </Divider>
           {/* <ProductList/> */}
-           <ProductContainer products={products} onAddToCart={onAddToCart}/> 
+           <ProductContainer 
+           products={products}
+            // onAddToCart={onAddToCart}
+            /> 
           
              <Link to="/product">
                <Button type="primary" className="view-more">Xem thêm</Button>

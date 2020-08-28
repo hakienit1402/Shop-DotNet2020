@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect} from "react";
 import { Breadcrumb, Row,Tabs,Divider } from "antd";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -8,22 +8,33 @@ import Review from "../../components/Product/Review";
 
 
 const { TabPane } = Tabs;
-class ProductDetailPage extends Component {
-  state = {
-    products: [],
-  };
-  componentDidMount() {
-    axios
-      .get(`http://localhost:3000/products/${this.props.match.params.id}`)
-      .then((res) => {
-        const products = res.data;
-        this.setState({ products });
-      });
-  }
-  render() {
-    const { name, price, image } = this.state.products;
-    console.log(image);
-    console.log(this.props.match.params.id);
+const ProductDetailPage = (props) => {
+  const [data, setData]= useState([])
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await axios.get(`http://localhost:61017/api/sanphams/${props.match.params.id}`);
+      setData(res.data);
+      console.log(res)
+      console.log(res.data);
+    };
+    fetchData();
+  }, []);
+  // state = {
+  //   product: [],
+  // };
+  // componentDidMount() {
+  //   axios
+  //     .get(`http://localhost:61017/api/sanphams/${this.props.match.params.id}`)
+  //     .then((res) => {
+  //       const products = res.data;
+  //       console.log(products);
+  //       this.setState({ products });
+  //     });
+  // }
+ 
+    // const { name, price, image } = this.state.products;
+    
+    console.log(props.match.params.id);
     return (
       <div className="container product-detailpage">
         <Row className="all-breadcrump">
@@ -38,13 +49,13 @@ class ProductDetailPage extends Component {
             <div className="row content-details">
                 <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                     <div className="imageDetails">
-                    <img src={image} alt={name} />  
+                    <img src={data.hinhanh} alt="/" />  
                     </div>
                 </div>
                 <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                     <div className="infoDetails">
                         <Row>
-                            <h1>{name}</h1>
+                            <h1>{data.tensp}</h1>
                         </Row>
                         <hr/>
                        
@@ -57,7 +68,7 @@ class ProductDetailPage extends Component {
                             </h4>
                             </Row>
                             <Row className="gia">
-                            <h4>PRICE: {price} VND</h4> 
+                            <h4>PRICE: {data.gia} VND</h4> 
                             </Row>
                             <p className="btn addcart">Add to cart</p>
                             
@@ -79,7 +90,7 @@ class ProductDetailPage extends Component {
                 </Tabs>
             </div>
             <hr/>
-            <Divider
+            {/* <Divider
           style={{
             color: "red",
             fontSize: 22,
@@ -90,10 +101,10 @@ class ProductDetailPage extends Component {
             >
           ROLATED PRODUCTS
         </Divider>
-            <ProductSlide/>
+            <ProductSlide/> */}
         </div>
       </div>
     );
   }
-}
+
 export default ProductDetailPage;

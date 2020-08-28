@@ -9,11 +9,11 @@ import {
 } from "@ant-design/icons";
 
 import { Route, Switch, Link } from "react-router-dom";
-import ProductContent from "./ProductContent";
+import ProductContent from "./ProductContent/ProductContent";
 import UserContent from "./UserContent/UserContent";
-import AdminContent from "./AdminContent";
-import ProductTypeContent from "./ProductTypeContent";
-import OrderContent from "./OrderContent";
+import AdminContent from "./AdminContent/AdminContent";
+import ProductTypeContent from "./ProductTypeContent/ProductTypeContent";
+import OrderContent from "./OrderContent/OrderContent";
 
 const { Header, Sider, Content } = Layout;
 

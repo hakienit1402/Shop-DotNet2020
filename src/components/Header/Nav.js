@@ -18,6 +18,7 @@ const Nav = (props) => {
       description: "Đăng xuất thành công",
       placement: "bottomRight",
     });
+    window.location.reload()
   };
   useEffect(() => {
     const isLogin = localStorage.getItem("isLogin");

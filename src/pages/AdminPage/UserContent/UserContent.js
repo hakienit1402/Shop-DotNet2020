@@ -21,7 +21,7 @@ const UserContent = () => {
   const [dataPerPage] = useState([5]);
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios.get(`http://localhost:3000/products`);
+      const res = await axios.get(`http://localhost:61017/api/sanphams`);
       setData(res.data);
     };
     fetchData();
@@ -37,16 +37,16 @@ const UserContent = () => {
     setVisible(true);
     setdataUpdate(dataEdit);
     setfileList([{
-      uid: dataEdit.id,
-      name: dataEdit.name,
+      uid: dataEdit.idsp,
+      name: dataEdit.tensp,
       status: 'done',
-      url: dataEdit.image
+      url: dataEdit.hinhanh
     }]);
   
   }
   //delete product
   const onDelete = (dataEdit) => {
-
+    
   }
 
   const uploadButton = (
@@ -84,7 +84,7 @@ const handleOk = () => {
           <form action="" method="POST" role="form">
             <div className="form-group">
               <label htmlFor="">Name</label>
-              <input type="text" className="form-control" onChange={(e) => setdataUpdate([{name : e.target.value}])  } value={dataUpdate.name} placeholder="Input field"/>
+              <input type="text" className="form-control" onChange={(e) => setdataUpdate([{tensp : e.target.value}])  } value={dataUpdate.tensp} placeholder="Input field"/>
               <label htmlFor="">Image</label>
               <Upload
                 action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
@@ -95,7 +95,7 @@ const handleOk = () => {
                {fileList.length >= 8 ? null : uploadButton}
                </Upload> 
               <label htmlFor="">Price</label>
-              <input type="text" className="form-control" onChange={(e) => setdataUpdate([{price : e.target.value}]) } value={dataUpdate.price}  placeholder="Input field"/>
+              <input type="text" className="form-control" onChange={(e) => setdataUpdate([{gia : e.target.value}]) } value={dataUpdate.gia}  placeholder="Input field"/>
               <label htmlFor="">Types</label>
               <input type="text" className="form-control" placeholder="Input field"/>
 

@@ -102,10 +102,6 @@
       "name": "Iphone 15",
       "image": "./../img/spdemo.png",
       "price": 1000
-    },
-    {
-      "name": "Test",
-      "id": 16
     }
   ],
   "cart": [

@@ -40,7 +40,7 @@ import ProductItem from './ProductItem';
            <div className="row">
                {/* content */}
            {products.map(product => 
-           <div key= {product.id}>
+           <div key= {product.idsp}>
              <ProductItem
                product={product} 
                onAddToCart={onAddToCart}

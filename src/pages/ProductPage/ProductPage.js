@@ -7,12 +7,21 @@ import axios from 'axios';
 const ProductPage = () => {
   const [products,setProducts]= useState([]);
   
+  // useEffect( async () => { await
+  //   axios.get(`http://localhost:61017/api/sanphams`).then((res) => {
+  //     setProducts(res.data);
+  //   });    
+  // }, []);
   useEffect(() => {
-    axios.get(`http://localhost:3000/products`).then((res) => {
+    const fetchData = async () => {
+      const res = await axios.get(`http://localhost:61017/api/sanphams`);
       setProducts(res.data);
-    });    
+      console.log(res)
+      console.log(res.data);
+    };
+    fetchData();
   }, []);
-
+  console.log(products);
     return (
       <div className="container product-page ">
         <Row className="my-breadcrump">

@@ -15,11 +15,11 @@ export const DataTable = ({data,onEdit,onDelete}) => {
                 </thead>
                 <tbody>
                     {data.map((item)=>(
-                        <tr key={item.id}>
-                            <td> {item.id} </td>
-                            <td> {item.name} </td>
-                            <td> <img src={item.image} alt="" style={{width:50,height:80}}/> </td>
-                            <td> {item.price}</td>
+                        <tr key={item.idsp}>
+                            <td> {item.idsp} </td>
+                            <td> {item.tensp} </td>
+                            <td> <img src={item.hinhanh} alt="" style={{width:50,height:80}}/> </td>
+                            <td> {item.gia}</td>
                             <td> 
                             <Button type="primary" onClick={() =>onEdit(item)}>Sửa</Button>
                             <Button type="primary"onClick={() =>onDelete(item)}>Xóa</Button>
