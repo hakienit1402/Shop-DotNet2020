@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 import { Button } from "antd";
 import {
@@ -21,6 +23,14 @@ class LoginPage extends Component {
   };
   handleSubmit = (e) => {
     e.preventDefault();
+    // axios.post('http://localhost:61017/api/login',{ 
+    // username: this.state.username, 
+    // password: this.state.password
+    // }).then(res => localStorage.setItem('token',res.data));
+    // axios.get('htt')
+    
+
+
     if (this.state.username === "admin" && this.state.password === "admin") {
       this.setState({ isLogin: true });
       localStorage.setItem("isLogin", true);
@@ -34,6 +44,7 @@ class LoginPage extends Component {
       this.props.history.push("/");
       window.location.reload();
     }
+    
   };
   // 
   responseFacebook = (response) => {

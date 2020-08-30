@@ -4,11 +4,12 @@ import { ShoppingCartOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 const { Search } = Input;
 
-const Nav = (props) => {
-  const { count } = props;
+const Nav = ({count,onSearch}) => {
+  
   const [isLogout, setIsLogout] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  
   const logout = () => {
     localStorage.clear();
     setIsLogout(true);
@@ -72,7 +73,8 @@ const Nav = (props) => {
       </Menu>
       <Search
         placeholder="Search sản phẩm..."
-        onSearch={(value) => console.log(value)}
+        // onSearch={(value) => localStorage.setItem("SEARCH", JSON.stringify(value))}
+        onSearch={onSearch}
         style={{ width: 300 }}
       />
 

@@ -2,11 +2,13 @@ import React, {useEffect,useState} from 'react'
 import {message} from 'antd'
 import context from './../../context';
 import ProductItem from './ProductItem';
- const ProductContainer = ({products}) => {
+ const ProductContainer = ({products,search}) => {
+  // const [search, setSearch] = useState(JSON.parse(localStorage.getItem('SEARCH')))
+  // console.log(search)
   const [count, setCount] = useState(JSON.parse(localStorage.getItem("COUNT")) ? JSON.parse(localStorage.getItem("COUNT")) : 0);
   const [cart,setCart] = useState(JSON.parse(localStorage.getItem("CART")) ? JSON.parse(localStorage.getItem("CART")) : []);
   const onAddToCart = (productItem) => {
-    let dataIndex = cart?.findIndex((x) => x.id === productItem.id);
+    let dataIndex = cart?.findIndex((x) => x.idsp === productItem.idsp);
     if (dataIndex !== -1) {
       // alert('Sản phẩm đã có trong giỏ hàng')
       message.warning({ content: 'Sản phẩm đã có trong giỏ hàng', style: {
@@ -32,14 +34,31 @@ import ProductItem from './ProductItem';
   useEffect(() => {
     localStorage.setItem("COUNT", JSON.stringify(count));
   }, [count]);
+//search filter 
 
   // render
   return (
-    <context.Provider value={count}>
     <div className="main-product">
            <div className="row">
                {/* content */}
-           {products.map(product => 
+            {(search == '' ) ? 
+            <>
+              {products.map(product => 
+              <div key= {product.idsp}>
+                <ProductItem
+                  product={product} 
+                  onAddToCart={onAddToCart}
+                />
+                </div>
+                )}
+                </>
+             : 
+             <>
+             <div style={{fontSize:17,fontWeight: "bolder", marginLeft:20,color:'red' }}>
+               Sản phẩm hiển thị cho từ khóa : {search} 
+             </div>
+             
+             {products.map(product => 
            <div key= {product.idsp}>
              <ProductItem
                product={product} 
@@ -47,9 +66,12 @@ import ProductItem from './ProductItem';
              />
              </div>
              )}
+             </>
+
+            }
+           
            </div>
          </div>
-         </context.Provider>
   )
 }
 export default ProductContainer;

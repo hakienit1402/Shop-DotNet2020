@@ -1,26 +1,44 @@
 import React, { useState, useEffect,useMemo, useCallback } from "react";
 import { Icon, Row, Divider, InputNumber, Button } from "antd";
+import {Link} from "react-router-dom";
 import ProductSlide from "../ProductPage/ProductSlide";
 import { DeleteOutlined } from "@ant-design/icons";
 import { Toast } from "react-bootstrap";
 const CartPage = (props) => {
   // const { parentCallback } = props;
+  const [count, setCount] = useState(JSON.parse(localStorage.getItem("COUNT")) ? JSON.parse(localStorage.getItem("COUNT")) : 0);
+  
   const [dataInitial, setDataInitial] = useState([]);
   const sum = JSON.parse(localStorage.getItem("SUM"));
   const [dataAfterUpdate, setDataAfterUpdate] = useState(dataInitial ? dataInitial : []);
   const [total, setTotal] = useState(sum ? sum : 0);
-  const formatNumber = (num) => {
-    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
-  };
+  const [dataCheckout, setDataCheckout] = useState([]);
+  const [checkout, setCheckout] = useState([
+    { 
+      idhd : 0,
+      idkh: 0,
+      cthd : [
+        { 
+          idhd : 0,
+          idsp: 0, 
+          sl: 0, 
+          gia: 0,
+        }
+      ]
+    }
+  ]);
+  // const formatNumber = (num) => {
+  //   return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+  // };
   const onChangeQuanlity = (val, id) => {
     let dataAfterUpdate = [];
     let total = 0;
     dataInitial.map((x) => {
-      if (x.id === id) {
+      if (x.idsp === id) {
         x.quanlity = val;
       }
       dataAfterUpdate.push(x);
-      total += x.quanlity * x.price;   
+      total += x.quanlity * x.gia;   
       setTotal(total);
       localStorage.setItem("CART", JSON.stringify(dataAfterUpdate));
     });
@@ -31,13 +49,48 @@ const CartPage = (props) => {
     let data = JSON.parse(localStorage.getItem("CART"))
     let total = 0 
     data && data.map((x) => {
-      total += x.quanlity * x.price;
+      total += x.quanlity * x.gia;
     });
     setTotal(total)
     setDataInitial(data)
     localStorage.setItem("SUM", JSON.stringify(total));
   }, [])
+  //delete 
+  const onDelete = (idx) => {
+    // console.log(dataEdit)
+    // let data = JSON.parse(localStorage.getItem("CART"))
+    let dataAfterUpdate = [];
+    let total = 0;
+    const data = [...dataInitial]
+    console.log(idx)
+    data.splice(idx,1)
+    setDataInitial(data)
+    if (data.length==0) {
+      localStorage.setItem("CART", JSON.stringify(dataAfterUpdate));
+    setTotal(total);
+    } else {
+      data.map((x) => {
+        dataAfterUpdate.push(x);
+        total += x.quanlity * x.gia;   
+        localStorage.setItem("CART", JSON.stringify(dataAfterUpdate));
+        setTotal(total);
+        });
+    }
+    
+    localStorage.setItem("SUM", JSON.stringify(total));
+    
+    setCount(count-1);
+    window.location.reload()
+}
+useEffect(() => {
+  localStorage.setItem("COUNT", JSON.stringify(count));
+}, [count]);
 
+const onCheckout = () => {
+  let data = JSON.parse(localStorage.getItem("CART"))
+  console.log(data);
+  
+}
 // effect count
   // useEffect(() => {
   //   let data = JSON.parse(localStorage.getItem("CART"))
@@ -69,27 +122,27 @@ const CartPage = (props) => {
               </thead>
               <tbody>
                 {dataInitial && dataInitial.map((item, idx) => 
-                    <tr key={item.id}>
+                    <tr key={idx}>
                       <td>
-                        {item.name}
-                        <img src={item.image} alt={item.name} style={{width:50,height:70, marginLeft:100}}/>
+                        {item.tensp}
+                        <img src={item.hinhanh} alt={item.tensp} style={{width:50,height:70, marginLeft:100}}/>
                       
                       </td>
-                      <td>{formatNumber(item.price)}</td>
+                      <td>{(item.gia)}</td>
                       <td>
                         <InputNumber
                           min="1"
                           defaultValue={item.quanlity}
-                          onChange={(val) => onChangeQuanlity(val, item.id)}
+                          onChange={(val) => onChangeQuanlity(val, item.idsp)}
                         />
                       </td>
-                      <td>{formatNumber(item.quanlity * item.price)}</td>
-                      <td><Button type="button"> Xóa </Button> </td>
+                      <td>{(item.quanlity * item.gia)}</td>
+                      <td><Button type="button" onClick={() => onDelete(idx)}> Xóa </Button> </td>
                     </tr>
                 )}
               </tbody>
             </table>
-            <p>{total}</p>
+            {/* <p>{total}</p> */}
           </div>
         </div>
         <div className="col-lg-4">
@@ -100,7 +153,7 @@ const CartPage = (props) => {
                 <tbody>
                   <tr>
                     <td>Subtotal</td>
-                    <td className="subtotal">{formatNumber(total)} VND</td>
+                    <td className="subtotal">{(total)} VND</td>
                   </tr>
                   <tr>
                     <td>Shipping</td>
@@ -108,15 +161,15 @@ const CartPage = (props) => {
                   </tr>
                   <tr className="total-row">
                     <td>Total</td>
-                    <td className="price-total">{formatNumber(total)} VND</td>
+                    <td className="price-total">{(total)} VND</td>
                   </tr>
                 </tbody>
               </table>
               <div className="btn-cart-totals">
-                <a href="#" className="update round-black-btn">
+                <a className="update round-black-btn">
                   Continue to Shipping
                 </a>
-                <a href="#" className="checkout round-black-btn">
+                <a  className="checkout round-black-btn" onClick={onCheckout}>
                   Proceed to Checkout
                 </a>
               </div>

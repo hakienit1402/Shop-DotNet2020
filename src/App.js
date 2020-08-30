@@ -1,4 +1,4 @@
-import React, { useState,useContext,useEffect } from "react";
+import React, { useState,useEffect } from "react";
 import "./App.css";
 import Nav from "./components/Header/Nav";
 import Footer from "./components/Footer/Footer";
@@ -14,32 +14,45 @@ import RegisterPage from "./pages/Login-Register/RegisterPage";
 import ScrollToTop from "./ScrollToTop";
 import ProductDetailPage from "./pages/ProductPage/ProductDetailPage";
 import { BackTop } from "antd";
-import context from './context';
+// import context from './context';
 function App() {
   const [count, setCount] = useState(JSON.parse(localStorage.getItem("COUNT")) ? JSON.parse(localStorage.getItem("COUNT")) : 0);
   // const callBackCount = (data) => {
   //   setCount(data)
   // }
+  const [search,setSearch] = useState('')
+
   useEffect(() => {
     const value = JSON.parse(localStorage.getItem("COUNT"));
     console.log(value)
     setCount(value)
   },[]);
+
+  const onSearch = (value) => {
+    setSearch(value)
+
+  }
+  // console.log(search)
+  // useEffect(() => {
+  //  localStorage.setItem("SEARCH", JSON.stringify(search)) 
+  // },[search])
   return (
     <Router>
       <ScrollToTop />  
       {/* <context.Provider value={count}> */}
       <Nav 
       count={count}
+      onSearch={onSearch}
+
       />
      
       <main className="main">
         <Switch>
           <Route path="/" exact={true}>
-            <HomePage />
+            <HomePage search={search} />
           </Route>
           <Route path="/product">
-            <ProductPage />
+            <ProductPage search={search}/>
           </Route>
           <Route path="/productdetail/:id" component={ProductDetailPage} />
           {/* <Route path="/cart" component={CartPage} /> */}

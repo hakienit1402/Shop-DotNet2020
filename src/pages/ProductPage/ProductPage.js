@@ -4,7 +4,7 @@ import { Divider,Button } from "antd";
 import ProductContainer from "./ProductContainer";
 import { Link } from "react-router-dom";
 import axios from 'axios';
-const ProductPage = () => {
+const ProductPage = ({search}) => {
   const [products,setProducts]= useState([]);
   
   // useEffect( async () => { await
@@ -16,12 +16,12 @@ const ProductPage = () => {
     const fetchData = async () => {
       const res = await axios.get(`http://localhost:61017/api/sanphams`);
       setProducts(res.data);
-      console.log(res)
-      console.log(res.data);
     };
     fetchData();
   }, []);
-  console.log(products);
+  const filterData = products.filter( filters => {
+    return filters.tensp.toLowerCase().includes(search.toLowerCase())
+  })
     return (
       <div className="container product-page ">
         <Row className="my-breadcrump">
@@ -33,7 +33,7 @@ const ProductPage = () => {
           
         </Row>
 
-        <ProductContainer products={products}/>
+        <ProductContainer products={filterData} search={search}/>
       
         {/* <Divider
           style={{
