@@ -12,7 +12,7 @@ const ProductDetailPage = (props) => {
   const [data, setData]= useState([])
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios.get(`http://localhost:61017/api/sanphams/${props.match.params.id}`);
+      const res = await axios.get(`http://localhost:44315/api/sanphams/${props.match.params.id}`);
       setData(res.data);
       console.log(res)
       console.log(res.data);
@@ -24,7 +24,7 @@ const ProductDetailPage = (props) => {
   // };
   // componentDidMount() {
   //   axios
-  //     .get(`http://localhost:61017/api/sanphams/${this.props.match.params.id}`)
+  //     .get(`http://localhost:44315/api/sanphams/${this.props.match.params.id}`)
   //     .then((res) => {
   //       const products = res.data;
   //       console.log(products);

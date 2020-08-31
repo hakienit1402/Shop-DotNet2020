@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
+import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 import { Button } from "antd";
 import {
   FacebookFilled,
@@ -23,30 +23,26 @@ class LoginPage extends Component {
   };
   handleSubmit = (e) => {
     e.preventDefault();
-    // axios.post('http://localhost:61017/api/login',{ 
-    // username: this.state.username, 
-    // password: this.state.password
-    // }).then(res => localStorage.setItem('token',res.data));
-    // axios.get('htt')
-    
-
-
-    if (this.state.username === "admin" && this.state.password === "admin") {
-      this.setState({ isLogin: true });
-      localStorage.setItem("isLogin", true);
-      localStorage.setItem("user", "KIEN");
-      this.props.history.push("/");
-      window.location.reload();
-    } else {
-      this.setState({ isLogin: true });
-      localStorage.setItem("isLogin", true);
-      localStorage.setItem("user", this.state.username);
-      this.props.history.push("/");
-      window.location.reload();
-    }
-    
+    console.log(this.state);
+    axios
+      .post("http://localhost:44315/api/taikhoans/login", {
+        username: this.state.username,
+        pass: this.state.password,
+      })
+      .then((res) => {
+        console.log(res.data);
+        
+        this.setState({ isLogin: true });
+        localStorage.setItem("isLogin", true);
+        localStorage.setItem("TOKEN", JSON.stringify(res.data.token));
+        localStorage.setItem("ROLE", JSON.stringify(res.data.user.roles));
+        localStorage.setItem("NAME", JSON.stringify(res.data.user.hoten));
+        this.props.history.push("/");
+        window.location.reload();
+      })
+      .catch(() => alert("Sai thong tin dang nhap"));
   };
-  // 
+  //
   responseFacebook = (response) => {
     console.log(response);
   };
@@ -68,9 +64,8 @@ class LoginPage extends Component {
                     autoLoad={false}
                     fields="name,email,picture"
                     callback={this.responseFacebook}
-                   
-                    render={renderProps => (
-                  <FacebookFilled onClick={renderProps.onClick}/>
+                    render={(renderProps) => (
+                      <FacebookFilled onClick={renderProps.onClick} />
                     )}
                   />
                 </span>

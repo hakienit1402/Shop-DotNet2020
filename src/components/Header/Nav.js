@@ -25,8 +25,8 @@ const Nav = ({count,onSearch}) => {
     const isLogin = localStorage.getItem("isLogin");
     setIsLogin(isLogin);
   }, []);
-  const name = localStorage.getItem("user");
-
+  const role = JSON.parse(localStorage.getItem("ROLE"));
+  const name = JSON.parse(localStorage.getItem("NAME"))
   const menu = (
     <Menu>
       <Menu.Item>
@@ -82,7 +82,7 @@ const Nav = ({count,onSearch}) => {
         {isLogin ? (
           <div>
             {/* check admin */}
-            {name === "KIEN" ? (
+            {role == 1 ? (
               <Dropdown overlay={menuAdmin} placement="bottomCenter" arrow>
                 <Button type="button" className="btn btn-default">
                   Hi! Admin {name}

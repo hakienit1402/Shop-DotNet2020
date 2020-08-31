@@ -11,7 +11,7 @@ const HomePage = ({ search }) => {
   const [products, setProducts] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios.get(`http://localhost:61017/api/sanphams`);
+      const res = await axios.get(`http://localhost:44315/api/sanphams`);
       setProducts(res.data);
       console.log(res);
       console.log(res.data);

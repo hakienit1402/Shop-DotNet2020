@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import {Link} from 'react-router-dom';
 import {
   FacebookFilled,
@@ -7,16 +7,58 @@ import {
   KeyOutlined,
 } from "@ant-design/icons";
 import { DatePicker,Radio,Button } from 'antd';
-class RegisterPage extends Component {
+import axios from 'axios';
+const RegisterPage = () => {
+  const [formValue,setFormValue] = useState(
+    {fullname:'',
+    username:'',
+    password:'',
+    });
+  // const [formValue,setFormValue] = useState([])
+  const [passwordConfirm, setPasswordConfirm] = useState('');
+  // const [dateofbirtd,setDateofbirtd] = useState('');
+  // const [gender, setGender] = useState('')
+  const handleChange = (e) => {
+    setFormValue({
+      ...formValue,
+      
+        [e.target.name] : e.target.value,
+        // dateofbirtd : dateofbirtd,
+        // gender: gender
 
-onChange = (value,dateString)=>{
-  console.log( dateString);
+      
+    })
+    
+
+  }
+  
+// const onChange = (value,dateString)=>{
+//   // console.log( dateString);
+//   console.log( typeof(dateString));
+//   setDateofbirtd(dateString)
+  
+// }
+
+// const onGenderChange=(e)=>{
+//   console.log(typeof(e.target.value));
+//   setGender(e.target.value)
+
+// }
+const handleSubmit = (e) => {
+  e.preventDefault();
+  console.log(formValue)
+  axios.post('http://localhost:44315/api/taikhoans/register', formValue)
+  .then((res) => {
+    alert("đăng kí thành công")
+    // console.log(res.data);
+    // this.props.history.push("/");
+    // window.location.reload();
+  })
+  .catch(() => alert("Tài khoản đã tồn tại"));
+
+
 }
 
-onGenderChange=(e)=>{
-  console.log(e.target.value);
-}
-  render() {
     const dateFormat = 'DD-MM-YYYY';
     return (
       <div className="container loginpage">
@@ -35,7 +77,7 @@ onGenderChange=(e)=>{
             </div>
             <hr />
             <div className="card-body">
-              <form className="formlogin" onSubmit={this.handleSubmit}>
+              <form className="formlogin" onSubmit={handleSubmit}>
                 <div className="input-group form-group">
                   <span className="form-icon">
                     
@@ -45,12 +87,12 @@ onGenderChange=(e)=>{
                     type="text"
                     className="form-control"
                     placeholder="full name"
-                    name="username"
+                    name="fullname"
                     required
-                    ref="username"
+                    
                     // lag vcl
-                    // onChange={this.handleChange}
-                    // value={username}
+                    onChange={handleChange}
+                    value={formValue.fullname}
                   />
                 </div>
                
@@ -65,10 +107,8 @@ onGenderChange=(e)=>{
                     placeholder="username"
                     name="username"
                     required
-                    ref="username"
-                    // lag vcl
-                    // onChange={this.handleChange}
-                    // value={username}
+                    onChange={handleChange}
+                    value={formValue.username}
                   />
                 </div>
                
@@ -82,23 +122,38 @@ onGenderChange=(e)=>{
                     className="form-control"
                     placeholder="password"
                     name="password"
-                    ref="password"
                     required
-                    // onChange={this.handleChange}
-                    // value={password}
+                    onChange={handleChange}
+                    value={formValue.password}
                   />
                 </div>
-                <div className="date-gender">
-                <DatePicker onChange={this.onChange} style={{width:170,height:40}} format={dateFormat} />
-                <Radio.Group style={{marginTop:5}} onChange={this.onGenderChange}>
+                <div className="input-group form-group">
+                  <span className="form-icon">
+                    <KeyOutlined />
+                  </span>
+
+                  <input
+                    type="password"
+                    className="form-control"
+                    placeholder="Confirm password"
+                    name="passwordConfirm"
+                    required
+                    
+                    onChange={e => setPasswordConfirm(e.target.value)}
+                    value={passwordConfirm}
+                  />
+                </div>
+                {/* <div className="date-gender">
+                <DatePicker onChange={onChange} style={{width:170,height:40}} format={dateFormat} />
+                <Radio.Group style={{marginTop:5}} onChange={onGenderChange}>
                 <Radio value="Male"><a style={{color:'white'}}>Male</a></Radio>
                 <Radio value="Female"><a style={{color:'white'}}>Female</a></Radio>
                 </Radio.Group>
-                </div>
+                </div> */}
                 <div className="form-group">
                   <Button
                     type="submit"
-                    defaultValue="Login"
+                    onClick={handleSubmit}
                     className="btn float-right login_btn"
                   >
                     REGISTER
@@ -117,6 +172,6 @@ onGenderChange=(e)=>{
       </div>
     );
   }
-}
+
 
 export default RegisterPage;
