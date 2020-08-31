@@ -25,13 +25,13 @@ class LoginPage extends Component {
     e.preventDefault();
     console.log(this.state);
     axios
-      .post("http://localhost:44315/api/taikhoans/login", {
+      .post("https://localhost:44315/api/taikhoans/login", {
         username: this.state.username,
         pass: this.state.password,
       })
       .then((res) => {
         console.log(res.data);
-        
+
         this.setState({ isLogin: true });
         localStorage.setItem("isLogin", true);
         localStorage.setItem("TOKEN", JSON.stringify(res.data.token));

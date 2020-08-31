@@ -47,7 +47,7 @@ const RegisterPage = () => {
 const handleSubmit = (e) => {
   e.preventDefault();
   console.log(formValue)
-  axios.post('http://localhost:44315/api/taikhoans/register', formValue)
+  axios.post('https://localhost:44315/api/taikhoans/register', formValue)
   .then((res) => {
     alert("đăng kí thành công")
     // console.log(res.data);

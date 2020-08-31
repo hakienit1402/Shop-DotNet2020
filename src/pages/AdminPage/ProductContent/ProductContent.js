@@ -50,7 +50,7 @@ function getBase64(img, callback) {
   const [dataPerPage] = useState([5]);
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios.get(`http://localhost:44315/api/sanphams`);
+      const res = await axios.get(`https://localhost:44315/api/sanphams`);
       setData(res.data);
     };
     fetchData();
@@ -103,7 +103,7 @@ const handleOk = () => {
     setTimeout(() => {
       setconfirmLoading(false);
       setVisible(false);
-      axios.put(`http://localhost:44315/api/sanphams/${dataUpdate.idsp}`, dataUpdate).then(res => {
+      axios.put(`https://localhost:44315/api/sanphams/${dataUpdate.idsp}`, dataUpdate).then(res => {
         console.log(res.data)
       });
     }, 2000);

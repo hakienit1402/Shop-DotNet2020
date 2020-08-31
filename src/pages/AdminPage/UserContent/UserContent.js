@@ -21,7 +21,7 @@ const UserContent = () => {
   const [dataPerPage] = useState([5]);
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios.get(`http://localhost:44315/api/sanphams`);
+      const res = await axios.get(`https://localhost:44315/api/sanphams`);
       setData(res.data);
     };
     fetchData();

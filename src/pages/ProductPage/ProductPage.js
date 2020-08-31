@@ -8,13 +8,13 @@ const ProductPage = ({search}) => {
   const [products,setProducts]= useState([]);
   
   // useEffect( async () => { await
-  //   axios.get(`http://localhost:44315/api/sanphams`).then((res) => {
+  //   axios.get(`https://localhost:44315/api/sanphams`).then((res) => {
   //     setProducts(res.data);
   //   });    
   // }, []);
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios.get(`http://localhost:44315/api/sanphams`);
+      const res = await axios.get(`https://localhost:44315/api/sanphams`);
       setProducts(res.data);
     };
     fetchData();
