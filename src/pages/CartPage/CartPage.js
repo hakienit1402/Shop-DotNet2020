@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 import ProductSlide from "../ProductPage/ProductSlide";
 import { DeleteOutlined } from "@ant-design/icons";
 import { Toast } from "react-bootstrap";
+import { Checkout } from "./Checkout";
 const CartPage = (props) => {
   // const { parentCallback } = props;
   const [count, setCount] = useState(JSON.parse(localStorage.getItem("COUNT")) ? JSON.parse(localStorage.getItem("COUNT")) : 0);
@@ -12,21 +13,9 @@ const CartPage = (props) => {
   const sum = JSON.parse(localStorage.getItem("SUM"));
   const [dataAfterUpdate, setDataAfterUpdate] = useState(dataInitial ? dataInitial : []);
   const [total, setTotal] = useState(sum ? sum : 0);
-  const [dataCheckout, setDataCheckout] = useState([]);
-  const [checkout, setCheckout] = useState([
-    { 
-      idhd : 0,
-      idkh: 0,
-      cthd : [
-        { 
-          idhd : 0,
-          idsp: 0, 
-          sl: 0, 
-          gia: 0,
-        }
-      ]
-    }
-  ]);
+  // const [dataCheckout, setDataCheckout] = useState([]);
+  // const [checkout, setCheckout] = useState([]);
+
   // const formatNumber = (num) => {
   //   return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
   // };
@@ -62,7 +51,7 @@ const CartPage = (props) => {
     let dataAfterUpdate = [];
     let total = 0;
     const data = [...dataInitial]
-    console.log(idx)
+    
     data.splice(idx,1)
     setDataInitial(data)
     if (data.length==0) {
@@ -166,12 +155,10 @@ const onCheckout = () => {
                 </tbody>
               </table>
               <div className="btn-cart-totals">
-                <a className="update round-black-btn">
+                <Link className="update round-black-btn" to='/product'>
                   Continue to Shipping
-                </a>
-                <a  className="checkout round-black-btn" onClick={onCheckout}>
-                  Proceed to Checkout
-                </a>
+                </Link>
+                <Checkout/>
               </div>
             </form>
           </div>

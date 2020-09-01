@@ -37,6 +37,7 @@ class LoginPage extends Component {
         localStorage.setItem("TOKEN", JSON.stringify(res.data.token));
         localStorage.setItem("ROLE", JSON.stringify(res.data.user.roles));
         localStorage.setItem("NAME", JSON.stringify(res.data.user.hoten));
+        localStorage.setItem("IDKH", JSON.stringify(res.data.user.idkh));
         this.props.history.push("/");
         window.location.reload();
       })
@@ -79,7 +80,7 @@ class LoginPage extends Component {
               <form className="formlogin" onSubmit={this.handleSubmit}>
                 <div className="input-group form-group">
                   <span className="form-icon">
-                    {" "}
+                   
                     <UserOutlined />
                   </span>
                   <input

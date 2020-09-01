@@ -11,7 +11,11 @@ const Nav = ({count,onSearch}) => {
   const [isAdmin, setIsAdmin] = useState(false);
   
   const logout = () => {
-    localStorage.clear();
+    // localStorage.clear();
+    localStorage.removeItem('isLogin')
+    localStorage.removeItem('NAME')
+    localStorage.removeItem('ROLE')
+    localStorage.removeItem('TOKEN')
     setIsLogout(true);
     setIsLogin(false);
     notification.success({

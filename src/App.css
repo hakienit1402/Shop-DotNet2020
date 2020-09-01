@@ -723,3 +723,7 @@ input:focus {
   overflow: auto;
   height: 450px;
 }
+.ant-modal{
+  width: 700px !important;
+    transform-origin: 569px 236px !important
+}

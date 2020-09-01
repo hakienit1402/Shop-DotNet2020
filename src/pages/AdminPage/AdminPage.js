@@ -14,6 +14,9 @@ import UserContent from "./UserContent/UserContent";
 import AdminContent from "./AdminContent/AdminContent";
 import ProductTypeContent from "./ProductTypeContent/ProductTypeContent";
 import OrderContent from "./OrderContent/OrderContent";
+import { Adduser } from "./Addpage/Adduser";
+import { Addorder } from "./Addpage/Addorder";
+import { Addproduct } from "./Addpage/Addproduct";
 
 const { Header, Sider, Content } = Layout;
 
@@ -100,6 +103,15 @@ class AdminPage extends Component {
                 <Route path="/admin/ordermanager">
                   <OrderContent />
                 </Route>
+                {/* <Route path="/admin/productmanager/add">
+                  <Addproduct />
+                </Route>
+                <Route path="/admin/ordermanager/add">
+                  <Addorder />
+                </Route>
+                <Route path="/admin/user/add">
+                  <Adduser />
+                </Route> */}
               </Switch>
             </Content>
           </Layout>
