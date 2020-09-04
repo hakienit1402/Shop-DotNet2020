@@ -13,11 +13,11 @@ export const FormLogin = () => {
       .then((res) => {
         const key ='login';
        message.loading({ content: 'Kiểm tra thông tin .',key , style: {
-        marginTop: '14vh', fontSize:"15px",marginLeft:700
+        marginTop: '14vh', fontSize:"15px"
       },});
     setTimeout(() => {
       message.success({ content: 'Login thành công !', key, duration: 2, style: {
-        marginTop: '14vh', fontSize:"15px",marginLeft:700
+        marginTop: '14vh', fontSize:"15px"
       }, });
       localStorage.setItem("isLogin", true);
       localStorage.setItem("TOKEN", JSON.stringify(res.data.token));

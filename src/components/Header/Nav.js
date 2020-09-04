@@ -48,7 +48,7 @@ const Nav = ({count,onSearch}) => {
   const menuAdmin = (
     <Menu>
       <Menu.Item>
-        <Link to="/admin">Dashboard</Link>
+        <Link to="/admin/productmanager">Dashboard</Link>
       </Menu.Item>
       <Menu.Item>
         <Link to="/account/customerInfo">Admin Account</Link>
@@ -66,7 +66,7 @@ const Nav = ({count,onSearch}) => {
       >
         <Menu.Item key="logo">
           <Link to="/" style={{ fontSize: 20, fontWeight: "bolder" }}>
-           <img src="./../logo.png" alt="" style={{height:60,width:90}}/>
+           <img src="./../logo.png" alt="" style={{height:50,width:110}}/>
           </Link>
         </Menu.Item>
         <Menu.Item key="product">

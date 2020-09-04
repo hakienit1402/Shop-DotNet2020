@@ -19,18 +19,18 @@ export const DataTable = ({data,onEdit,onDelete,onView,requestSort,requestSortID
                 </thead>
                 <tbody>
                     {data.map((item,index)=>(
-                        <tr key={index}>
+                        <tr key={index} >
                             <td> {item.idsp} </td>
                             {/* <td> {} </td> */}
-                            <td> {item.tensp} </td>
-                            <td> <img src={item.hinhanh} alt="" style={{width:80,height:90}}/> </td>
-                            <td> {item.gia}</td>
+                            <td style={{width:200}}> {item.tensp} </td>
+                            <td style={{textAlign:'center'}}> <img src={item.hinhanh} alt="" style={{width:80,height:90}}/> </td>
+                            <td style={{textAlign:'center'}}> {item.gia}</td>
                             <td> 
                                 <span style={{display:"block"}}> - Màu: {item.mausac}</span>
                                 <span style={{display:"block"}}> - Màn hình: {item.manhinh}</span>
                                 <span style={{display:"block"}}> - Hệ điều hành: {item.hedieuhanh}</span>
                             </td>
-                            {item.sl == 0 ?  <td style={{color:'red'}}>Ngừng kinh doanh</td> : <td> <span style={{color:'green',display:"block"}}>Còn hàng</span> <span style={{display:"block"}}>{item.sl} sản phẩm</span> </td>}
+                            {item.sl == 0 ?  <td style={{color:'red',textAlign:'center'}}>Ngừng kinh doanh</td> : <td style={{textAlign:'center'}} > <span style={{color:'green',display:"block"}}>Còn hàng</span> <span style={{display:"block"}}>{item.sl} sản phẩm</span> </td>}
                            
                             <td style={{width:100,textAlign:'center'}}> 
                             <a onClick={() =>onView(item)} ><EyeOutlined  style={{color:'blue', fontSize: 20, padding:3}}/></a>

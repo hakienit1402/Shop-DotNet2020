@@ -84,8 +84,9 @@ useEffect(() => {
           <div className="table-cart">
             <table>
               <thead>
-                <tr>
-                  <th>Product</th>
+                <tr style={{textAlign:'center'}}>
+                  <th>Sản phẩm</th>
+                  <th>Hình ảnh</th>
                   <th>Price</th>
                   <th>Quantity</th>
                   <th>Thành tiền</th>
@@ -94,14 +95,15 @@ useEffect(() => {
               </thead>
               <tbody>
                 {dataInitial && dataInitial.map((item, idx) => 
-                    <tr key={idx}>
-                      <td>
+                    <tr key={idx} style={{textAlign:'center'}}>
+                      <td style={{width:170}}>
                         {item.tensp}
-                        <img src={item.hinhanh} alt={item.tensp} style={{width:50,height:70, marginLeft:100}}/>
+                       
                       
                       </td>
-                      <td>{(item.gia)}</td>
-                      <td>
+                      <td style={{width:70}}> <img src={item.hinhanh} alt={item.tensp} style={{width:60,height:70}}/></td>
+                      <td style={{width:140}}>{(item.gia)}</td>
+                      <td style={{width:90}}>
                         <InputNumber
                           min="1"
                           defaultValue={item.quanlity}
@@ -124,7 +126,7 @@ useEffect(() => {
               <table>
                 <tbody>
                   <tr>
-                    <td>Subtotal</td>
+                    <td>Tổng giá</td>
                     <td className="subtotal">{(total)} VND</td>
                   </tr>
                   <tr>
@@ -132,14 +134,14 @@ useEffect(() => {
                     <td className="free-shipping">Free Shipping</td>
                   </tr>
                   <tr className="total-row">
-                    <td>Total</td>
+                    <td>Tổng tiền</td>
                     <td className="price-total">{(total)} VND</td>
                   </tr>
                 </tbody>
               </table>
               <div className="btn-cart-totals">
                 <Link className="update round-black-btn" to='/product'>
-                  Continue to Shipping
+                 Tiếp tục mua sắm
                 </Link>
                 <Checkout/>
               </div>

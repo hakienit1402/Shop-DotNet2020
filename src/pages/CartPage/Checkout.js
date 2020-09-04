@@ -71,7 +71,7 @@ export const Checkout = () => {
   return (
     <div>
       <a type="primary" className="update round-black-btn" onClick={showModal}>
-        Proceed to Checkout
+        Thanh toán
       </a>
       <Modal
         className="checl-out"

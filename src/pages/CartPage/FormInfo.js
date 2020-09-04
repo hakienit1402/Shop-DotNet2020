@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, Input, Button, Checkbox } from "antd";
+import { Form, Input, Button, message } from "antd";
 import axios from "axios";
 export const FormInfo = () => {
   const [info, setInfo] = useState([]);
@@ -39,6 +39,15 @@ export const FormInfo = () => {
   }, []);
 
   const onSubmit = () => {
+    const key = "add";
+    message.loading({
+      content: "Kiểm tra thông tin ....",
+      key,
+      style: {
+        marginTop: "14vh",
+        fontSize: "17px",
+      },
+    });
     var today = new Date();
     setData({
         ...data, 
@@ -47,6 +56,17 @@ export const FormInfo = () => {
         // ngay: today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear() 
         ngay:Date()
         })
+        setTimeout(() => {
+          message.success({
+            content: "Kiểm tra thành công !!!",
+            key,
+            duration: 2,
+            style: {
+              marginTop: "15vh",
+              fontSize: "17px",
+            },
+          });
+        }, 1000);
         
   };
 
@@ -93,8 +113,8 @@ export const FormInfo = () => {
          </Form.Item>
         {/* <MyMapComponent/> */}
         <Form.Item >
-          <Button type="primary" onClick={onSubmit}>
-            Submit
+          <Button type="primary" onClick={onSubmit} style={{marginLeft:30}}>
+            Kiểm tra thông tin
           </Button>
         </Form.Item>
       </Form>
