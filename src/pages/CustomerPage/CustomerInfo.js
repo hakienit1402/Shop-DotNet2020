@@ -50,13 +50,12 @@ const CustomerInfo = () => {
   }, [idkh]);
 
 
-
   return (
     <div>
       <Row style={{ display: "flex", justifyContent: "space-between" }}>
         <Card
           title="Thông tin tài khoản"
-          extra={<a href="#">Chỉnh sửa</a>}
+          extra={<Link to="/account/customerInfoEdit">Chỉnh sửa</Link>}
           style={{ width: 270 }}
         >
           <Descriptions size="small">
@@ -70,7 +69,7 @@ const CustomerInfo = () => {
           <Card
             title="Sổ địa chỉ"
             className="scale-card"
-            extra={<a href="#">Chỉnh sửa</a>}
+            extra={<Link to="/account/changeAddress">Chỉnh sửa</Link>}
             style={{ width: 350 }}
           >
             <Descriptions size="small">
@@ -98,7 +97,6 @@ const CustomerInfo = () => {
             </Descriptions>
             <Descriptions size="small">
               <Descriptions.Item label="Số điện thoại">
-                {" "}
                 {info.sdt}
               </Descriptions.Item>
             </Descriptions>
@@ -112,7 +110,7 @@ const CustomerInfo = () => {
       </Row>
       <Card
         title="Đơn hàng gần nhất"
-        extra={<a href="#">Xem thêm</a>}
+        extra={<Link to="/account/customerOrder">Xem thêm</Link>}
         style={{ width: "100%", marginTop: 10 }}
       >
         <table className="table table-hover" style={{textAlign:'center'}}>

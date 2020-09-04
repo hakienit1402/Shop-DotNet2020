@@ -15,6 +15,9 @@ import RegisterPage from "./pages/Login-Register/RegisterPage";
 import ScrollToTop from "./ScrollToTop";
 import ProductDetailPage from "./pages/ProductPage/ProductDetailPage";
 import { BackTop } from "antd";
+import CheckMail from "./pages/Login-Register/CheckMail";
+import { ChangePass } from "./pages/CustomerPage/ChangePass";
+import { ForgetPass } from './pages/Login-Register/ForgetPass';
 // import context from './context';
 function App() {
   const [count, setCount] = useState(JSON.parse(localStorage.getItem("COUNT")) ? JSON.parse(localStorage.getItem("COUNT")) : 0);
@@ -69,6 +72,8 @@ function App() {
           <Route path="/aboutus" component={NotFound} />
           <Route path="/login" component={LoginPage} />
           <Route path="/register" component={RegisterPage} />
+          <Route path="/checkmail" component={CheckMail} />
+          <Route path="/forgetpass" component={ForgetPass} />
           <Route path="" component={NotFound} />
         </Switch>
       </main>

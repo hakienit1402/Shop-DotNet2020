@@ -24,7 +24,7 @@ const CustomerInfoEdit = ({info}) => {
     Object.assign(values, { idkh : info.idkh,
     roles: info.roles, status: info.status
  });
-    console.log("Success:", values);
+  
 
     const key = "add";
     message.loading({
@@ -32,7 +32,7 @@ const CustomerInfoEdit = ({info}) => {
       key,
       style: {
         marginTop: "14vh",
-        fontSize: "20px",
+        fontSize: "15px",
       },
     });
     setTimeout(() => {
@@ -47,7 +47,7 @@ const CustomerInfoEdit = ({info}) => {
             duration: 2,
             style: {
               marginTop: "15vh",
-              fontSize: "17px",
+              fontSize: "15px",
             },
           });
         }) 
@@ -100,7 +100,9 @@ const CustomerInfoEdit = ({info}) => {
               ]}
             >
               <Input.Password placeholder="Password" disabled />
+              
             </Form.Item>
+            <Link to="/account/mail" style={{marginTop:-23,position:'absolute'}}>Thay đổi mật khẩu ?</Link>
           </Col>
         </Row>
         <Row gutter={16}>

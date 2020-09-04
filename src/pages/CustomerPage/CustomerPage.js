@@ -14,6 +14,8 @@ import ChangeAddress from "./ChangeAddress";
 import CustomerOrderInfo from "./CustomerOrderInfo";
 import axios from 'axios'
 import  CustomerInfoEdit  from './CustomerInfoEdit';
+import { Mail } from './Mail';
+import {ChangePass} from './ChangePass'
 const { Header, Sider, Content } = Layout; 
 
 const CustomerPage = () => {
@@ -101,8 +103,16 @@ const [info,setInfo] = useState([])
                   />
                   <Route
                     path="/account/changeAddress"
-                    component={ChangeAddress}
-                  />
+                    
+                  ><ChangeAddress info={info}/></Route>
+                  <Route
+                    path="/account/mail"
+                    
+                  ><Mail/></Route>
+                    <Route
+                    path="/account/pass"
+                    
+                  ><ChangePass/></Route>
                 </Switch>
              
             </Content>

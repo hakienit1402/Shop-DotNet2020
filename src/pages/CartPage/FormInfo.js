@@ -44,7 +44,8 @@ export const FormInfo = () => {
         ...data, 
         idkh: info.idkh,
         tinhtrang: 'Chưa kiểm duyệt',
-        ngay: today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear() 
+        // ngay: today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear() 
+        ngay:Date()
         })
         
   };

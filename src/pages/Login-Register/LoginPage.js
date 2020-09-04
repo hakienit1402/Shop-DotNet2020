@@ -112,7 +112,7 @@ class LoginPage extends Component {
                 </div>
                 <div className="form-group">
                   <div className="forgot">
-                    <a href="#">Forgot your password?</a>
+                    <Link to='/checkmail'>Forgot your password?</Link>
                   </div>
                   <button
                     type="submit"
