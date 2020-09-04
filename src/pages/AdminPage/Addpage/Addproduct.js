@@ -45,8 +45,10 @@ export const Addproduct = () => {
   const showDrawer = () => {
     setVisible(true);
   };
-
-  const onClose = () => {
+  const onClose = ()=>{
+    setVisible(false)
+  }
+  const onSave = () => {
     setVisible(false);
     const key ='add';
     message.loading({ content: 'Thêm mới sản phẩm......',key , style: {
@@ -58,10 +60,11 @@ export const Addproduct = () => {
             message.success({ content: 'Thêm thành công !', key, duration: 2, style: {
                 marginTop: '15vh', fontSize:"20px"
               }, });
-          }).catch (message.success({ content: 'Thêm thất bại !', key, duration: 2, style: {
-            marginTop: '15vh', fontSize:"20px"
-          }, }))
-       }, 1000);
+          })
+          // .catch (message.success({ content: 'Thêm thất bại !', key, duration: 2, style: {
+          //   marginTop: '15vh', fontSize:"20px"
+          // }, }))
+       }, 2000);
     
   };
 
@@ -103,7 +106,7 @@ export const Addproduct = () => {
   return (
     <>
       <Button type="primary" onClick={showDrawer}>
-        <PlusOutlined /> New product
+        <PlusOutlined /> Thêm sản phẩm
       </Button>
       <Drawer
         title="Create a new account"
@@ -112,7 +115,7 @@ export const Addproduct = () => {
         visible={visible}
         bodyStyle={{ paddingBottom: 80 }}
         footer={
-            <Button onClick={onClose}>Save</Button>
+            <Button onClick={onSave}>Save</Button>
         }
       >
         <Form layout="vertical" hideRequiredMark onFinish={onFinish}>

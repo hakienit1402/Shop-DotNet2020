@@ -16,6 +16,7 @@ const Nav = ({count,onSearch}) => {
     localStorage.removeItem('NAME')
     localStorage.removeItem('ROLE')
     localStorage.removeItem('TOKEN')
+    localStorage.removeItem('IDKH')
     setIsLogout(true);
     setIsLogin(false);
     notification.success({

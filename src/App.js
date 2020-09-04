@@ -1,5 +1,6 @@
 import React, { useState,useEffect } from "react";
 import "./App.css";
+import { Skeleton } from 'antd';
 import Nav from "./components/Header/Nav";
 import Footer from "./components/Footer/Footer";
 import HomePage from "./pages/HomePage/HomePage";
@@ -24,7 +25,6 @@ function App() {
 
   useEffect(() => {
     const value = JSON.parse(localStorage.getItem("COUNT"));
-    console.log(value)
     setCount(value)
   },[]);
 
@@ -38,6 +38,7 @@ function App() {
   // },[search])
   return (
     <Router>
+
       <ScrollToTop />  
       {/* <context.Provider value={count}> */}
       <Nav 
@@ -47,6 +48,7 @@ function App() {
       />
      
       <main className="main">
+
         <Switch>
           <Route path="/" exact={true}>
             <HomePage search={search} />
@@ -70,6 +72,7 @@ function App() {
           <Route path="" component={NotFound} />
         </Switch>
       </main>
+   
       <BackTop />
       <Footer />
       {/* </context.Provider>  */}

@@ -9,17 +9,17 @@ const { Step } = Steps;
 
 export const Checkout = () => {
   const [visible, setVisible] = useState(false);
-  const [confirmLoading, setConfirmLoading] = useState();
   const [stepCur, setStepCur] = useState(0);
-  const [data] = useState(JSON.parse(localStorage.getItem('HOADON')) ? JSON.parse(localStorage.getItem('HOADON')): [])
-  console.log(data)
+  const [data,setData] = useState([])
   const showModal = () => {
     setVisible(true);
     const isLogin = JSON.parse(localStorage.getItem('isLogin'));
     if (isLogin) setStepCur(1)
-  
   };
-
+  useEffect(()=>{
+    let dataTmp = JSON.parse(localStorage.getItem('HOADON'))
+    setData(dataTmp)
+  },[data])
   const handleCancel = () => {
     setVisible(false);
   };
@@ -28,15 +28,14 @@ export const Checkout = () => {
   };
   const onNext = () => {
     setStepCur(stepCur + 1);
-
   };
   const steps = [
     {
-      title: "LOGIN",
+      title: "Check Login",
       content: <FormLogin/>
     },
     {
-      title: "Thông tin",
+      title: "Xác nhận thông tin",
       content: <FormInfo/>
     },
     {
@@ -46,24 +45,27 @@ export const Checkout = () => {
   ];
   const onCheckout = () => {
     setVisible(false);
+    console.log(data)
     const key ='add';
-    message.loading({ content: 'Xác nhận thanh toán',key , style: {
-     marginTop: '14vh', fontSize:"20px"
-   },});
-    setTimeout(() => {
-        axios.post(`https://localhost:44315/api/hoadons`,data).then(res => { 
-            console.log(res.data)
-            message.success({ content: 'Thanh toán thành công !', key, duration: 2, style: {
-                marginTop: '15vh', fontSize:"20px"
-              }, });
-          }).catch (message.success({ content: 'Thanh toán thất bại !', key, duration: 2, style: {
-            marginTop: '15vh', fontSize:"20px"
-          }, }))
-       }, 1000);
+  //   message.loading({ content: 'Xác nhận thanh toán',key , style: {
+  //    marginTop: '14vh', fontSize:"20px"
+  //  },});
+  //   setTimeout(() => {
+  //       axios.post(`https://localhost:44315/api/hoadons`,data).then(res => { 
+  //           localStorage.removeItem('CART')
+  //           localStorage.removeItem('SUM')
+  //           localStorage.removeItem('COUNT')
+  //           localStorage.removeItem('HOADON')
+  //           message.success({ content: 'Thanh toán thành công !', key, duration: 2, style: {
+  //               marginTop: '15vh', fontSize:"20px"
+  //             }, });
+  //             window.location.reload()
+  //         })
+  //      }, 1000);
     
-    // let data = JSON.parse(localStorage.getItem("CART"));
-    // console.log(data);
+   
   };
+  // console.log(data)
   return (
     <div>
       <a type="primary" className="update round-black-btn" onClick={showModal}>
@@ -106,7 +108,7 @@ export const Checkout = () => {
               Previous
             </Button>
           )}
-        </div>{" "}
+        </div>
       </Modal>
     </div>
   );

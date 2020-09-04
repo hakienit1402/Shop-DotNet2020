@@ -31,7 +31,7 @@ class LoginPage extends Component {
       })
       .then((res) => {
         console.log(res.data);
-
+        if (res.data == '') {alert('sai thông tin đăng nhập!!!!')} else {
         this.setState({ isLogin: true });
         localStorage.setItem("isLogin", true);
         localStorage.setItem("TOKEN", JSON.stringify(res.data.token));
@@ -39,9 +39,8 @@ class LoginPage extends Component {
         localStorage.setItem("NAME", JSON.stringify(res.data.user.hoten));
         localStorage.setItem("IDKH", JSON.stringify(res.data.user.idkh));
         this.props.history.push("/");
-        window.location.reload();
+        window.location.reload()}
       })
-      .catch(() => alert("Sai thong tin dang nhap"));
   };
   //
   responseFacebook = (response) => {

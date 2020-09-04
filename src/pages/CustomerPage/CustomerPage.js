@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { Layout, Menu, Avatar } from "antd";
+import React, { useState,useEffect } from "react";
+import { Layout, Menu, Avatar,Descriptions } from "antd";
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
@@ -8,30 +8,42 @@ import {
   SettingOutlined,
 } from "@ant-design/icons";
 import CustomerInfo from "./CustomerInfo";
-
 import { Route, Switch, Link } from "react-router-dom";
 import CustomerOrder from "./CustomerOrder";
 import ChangeAddress from "./ChangeAddress";
 import CustomerOrderInfo from "./CustomerOrderInfo";
+import axios from 'axios'
+import  CustomerInfoEdit  from './CustomerInfoEdit';
+const { Header, Sider, Content } = Layout; 
 
-const { Header, Sider, Content } = Layout;
+const CustomerPage = () => {
+  const [idkh,setIdkh] = useState(JSON.parse(localStorage.getItem('IDKH'))? JSON.parse(localStorage.getItem('IDKH')) : 0)
 
-class CustomerPage extends Component {
-  state = {
-    collapsed: false,
-  };
 
-  toggle = () => {
-    this.setState({
-      collapsed: !this.state.collapsed,
-    });
-  };
+const [info,setInfo] = useState([])
+  const [infoEdit,setInfoEdit] = useState([])
 
-  render() {
+  useEffect(() => {
+    const id = JSON.parse(localStorage.getItem('IDKH'))
+    setIdkh(id)
+    }, [idkh]);
+
+ 
+    useEffect(() => {
+      const fetchData = async () => {
+        const res = await axios.get(`https://localhost:44315/api/taikhoans/${idkh}`)
+        setInfo(res.data);
+      };
+      fetchData();
+  
+    }, [idkh]);
+
+
+
     return (
-      <div className="container customer-page">
+      <div className=" customer-page" style={{paddingLeft:30,paddingRight:30}}>
         <Layout>
-          <Sider trigger={null} collapsible collapsed={this.state.collapsed}>
+          <Sider trigger={null} collapsible >
             <div
               className="logo"
               style={{
@@ -44,35 +56,28 @@ class CustomerPage extends Component {
             >
               <Avatar size={40}>USER</Avatar>
             </div>
-            <Menu mode="inline" defaultSelectedKeys={["1"]}>
+            <Menu mode="inline" defaultSelectedKeys={["1"]} style={{fontWeight:'bold'}}>
               <Menu.Item key="1" icon={<UserOutlined />}>
-                <Link to="/account/customerInfo">My account</Link>
+                <Link to="/account/customerInfo">Tài khoản của tôi</Link>
               </Menu.Item>
 
               <Menu.Item key="2" icon={<ShopOutlined />}>
-                <Link to="/account/customerOrder">My Orders</Link>
+                <Link to="/account/customerOrder">Hóa đơn của tôi</Link>
               </Menu.Item>
 
               <Menu.Item key="3" icon={<SettingOutlined />}>
-                <Link to="/account/changeAddress">Change address</Link>
+                <Link to="/account/changeAddress">Sổ địa chỉ</Link>
               </Menu.Item>
             </Menu>
           </Sider>
           <Layout className="site-layout">
             <Header className="site-layout-background" style={{ padding: 0 }}>
-              {React.createElement(
-                this.state.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
-                {
-                  className: "trigger",
-                  onClick: this.toggle,
-                }
-              )}
+            <Descriptions title="Quản lý tài khoản" style={{  marginLeft:24, paddingTop:14}}/>
             </Header>
-
             <Content
               className="site-layout-background"
               style={{
-                margin: "24px 16px",
+                margin: "15px 12px",
                 padding: 24,
                 minHeight: 400,
               }}
@@ -81,12 +86,15 @@ class CustomerPage extends Component {
                 <Switch>
                   <Route
                     path="/account/customerInfo"
-                    component={CustomerInfo}
-                  />
+                    
+                  ><CustomerInfo /></Route>
+                   <Route
+                    path="/account/customerInfoEdit" 
+                  ><CustomerInfoEdit info={info}/></Route>
                   <Route
                     path="/account/customerOrder"
-                    component={CustomerOrder}
-                  />
+                    
+                  ><CustomerOrder/></Route>
                   <Route
                     path="/account/customerOrder/info"
                     component={CustomerOrderInfo}
@@ -103,6 +111,6 @@ class CustomerPage extends Component {
       </div>
     );
   }
-}
+
 
 export default CustomerPage;

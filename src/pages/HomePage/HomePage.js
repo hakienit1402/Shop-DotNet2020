@@ -8,13 +8,13 @@ import ProductContainer from "../ProductPage/ProductContainer";
 import ProductContainerLimit from "./../ProductPage/ProductContainerLimit";
 
 const HomePage = ({ search }) => {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([]); 
   useEffect(() => {
     const fetchData = async () => {
       const res = await axios.get(`https://localhost:44315/api/sanphams`);
       setProducts(res.data);
-      console.log(res);
-      console.log(res.data);
+      // console.log(res);
+      // console.log(res.data);
     };
     fetchData();
   }, []);

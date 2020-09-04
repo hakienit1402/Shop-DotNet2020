@@ -3,7 +3,6 @@ import { Descriptions } from "antd";
 export const Confirm = () => {
     const [total,setTotal] = useState(JSON.parse(localStorage.getItem('SUM')) ? JSON.parse(localStorage.getItem('SUM')) : 0)
     const [data] = useState(JSON.parse(localStorage.getItem('CART')) ? JSON.parse(localStorage.getItem('CART')): [])
-    console.log(data)
   return (
     <>
       <Descriptions title="Thông tin hóa đơn">

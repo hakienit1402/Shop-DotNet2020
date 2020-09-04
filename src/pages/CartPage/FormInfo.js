@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Form, Input, Button, Checkbox } from "antd";
 import axios from "axios";
-// import { MyMapComponent } from "../../components/Map/MyMapComponent";
 export const FormInfo = () => {
   const [info, setInfo] = useState([]);
   const [data, setData] = useState([]);
@@ -9,7 +8,6 @@ export const FormInfo = () => {
   useEffect(() => {
     let dataCart = JSON.parse(localStorage.getItem("CART"))
     let tonggiaCart = JSON.parse(localStorage.getItem("SUM"))
-    console.log(dataCart.length)
     setDatacheckout(dataCart)
     setData({
         ...data,
@@ -45,14 +43,23 @@ export const FormInfo = () => {
     setData({
         ...data, 
         idkh: info.idkh,
-        ngay: today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear()
+        tinhtrang: 'Chưa kiểm duyệt',
+        ngay: today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear() 
+        // ngay: Date()
+
         })
-    
+        
   };
+
+
+
   useEffect(() => {
     Object.assign(data,{chitiethoadons:datacheckout});
     localStorage.setItem('HOADON',JSON.stringify(data))
-  }, [data]);
+  }, []);
+
+
+
     const onDefault = () => {
         setData({
             ...data, 

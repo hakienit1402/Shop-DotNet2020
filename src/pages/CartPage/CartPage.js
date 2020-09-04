@@ -75,24 +75,11 @@ useEffect(() => {
   localStorage.setItem("COUNT", JSON.stringify(count));
 }, [count]);
 
-const onCheckout = () => {
-  let data = JSON.parse(localStorage.getItem("CART"))
-  console.log(data);
+// const onCheckout = () => {
+//   let data = JSON.parse(localStorage.getItem("CART"))
+//   console.log(data);
   
-}
-// effect count
-  // useEffect(() => {
-  //   let data = JSON.parse(localStorage.getItem("CART"))
-  //   let count = 0;
-  //   data.map((x) => {
-  //     count += x.quanlity;
-  //     setCount(count);
-  //   });
-  //   // parentCallback(count)
-  //   localStorage.setItem("COUNT", JSON.stringify(count));
-  // }, [count])
-
-
+// }
   return (
     <div className="container cartpage">
       <Row className="cart-main">

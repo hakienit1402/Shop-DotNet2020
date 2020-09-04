@@ -10,13 +10,10 @@ import {
 
 import { Route, Switch, Link } from "react-router-dom";
 import ProductContent from "./ProductContent/ProductContent";
-import UserContent from "./UserContent/UserContent";
 import AdminContent from "./AdminContent/AdminContent";
 import ProductTypeContent from "./ProductTypeContent/ProductTypeContent";
 import OrderContent from "./OrderContent/OrderContent";
-import { Adduser } from "./Addpage/Adduser";
-import { Addorder } from "./Addpage/Addorder";
-import { Addproduct } from "./Addpage/Addproduct";
+
 
 const { Header, Sider, Content } = Layout;
 
@@ -33,7 +30,7 @@ class AdminPage extends Component {
 
   render() {
     return (
-      <div className="container customer-page">
+      <div className=" customer-page">
         <Layout>
           <Sider trigger={null} collapsible collapsed={this.state.collapsed}>
             <div
@@ -56,12 +53,8 @@ class AdminPage extends Component {
               <Menu.Item key="thuonghieu" icon={<ShopOutlined />}>
                 <Link to="/admin/producttypemanager">Quản lý thương hiệu</Link>
               </Menu.Item>
-
-              <Menu.Item key="taikhoan" icon={<SettingOutlined />}>
-                <Link to="/admin/usermanager">Quản lý tài khoản</Link>
-              </Menu.Item>
               <Menu.Item key="taikhoanadmin" icon={<SettingOutlined />}>
-                <Link to="/admin/adminmanager">Quản lý admin</Link>
+                <Link to="/admin/adminmanager">Quản lý tài khoản</Link>
               </Menu.Item>
               <Menu.Item key="hoadon" icon={<SettingOutlined />}>
                 <Link to="/admin/ordermanager">Quản lý hóa đơn</Link>
@@ -91,9 +84,7 @@ class AdminPage extends Component {
                 <Route path="/admin/productmanager">
                     <ProductContent/>
                 </Route>
-                <Route path="/admin/usermanager">
-                  <UserContent />
-                </Route>
+              
                 <Route path="/admin/producttypemanager">
                   <ProductTypeContent />
                 </Route>
@@ -103,15 +94,6 @@ class AdminPage extends Component {
                 <Route path="/admin/ordermanager">
                   <OrderContent />
                 </Route>
-                {/* <Route path="/admin/productmanager/add">
-                  <Addproduct />
-                </Route>
-                <Route path="/admin/ordermanager/add">
-                  <Addorder />
-                </Route>
-                <Route path="/admin/user/add">
-                  <Adduser />
-                </Route> */}
               </Switch>
             </Content>
           </Layout>
@@ -120,5 +102,4 @@ class AdminPage extends Component {
     );
   }
 }
-
 export default AdminPage;

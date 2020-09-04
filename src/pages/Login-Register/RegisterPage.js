@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import {Link} from 'react-router-dom';
+import React, { useState,useEffect } from "react";
+import {Link, Redirect} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import {
   FacebookFilled,
   GooglePlusSquareFilled,
@@ -8,58 +9,41 @@ import {
 } from "@ant-design/icons";
 import { DatePicker,Radio,Button } from 'antd';
 import axios from 'axios';
+import { data } from "jquery";
+import { set } from "lodash";
 const RegisterPage = () => {
-  const [formValue,setFormValue] = useState(
-    {fullname:'',
-    username:'',
-    password:'',
-    });
-  // const [formValue,setFormValue] = useState([])
+  const history = useHistory();
+  const [formValue,setFormValue] = useState([])
   const [passwordConfirm, setPasswordConfirm] = useState('');
-  // const [dateofbirtd,setDateofbirtd] = useState('');
-  // const [gender, setGender] = useState('')
+
   const handleChange = (e) => {
     setFormValue({
       ...formValue,
-      
         [e.target.name] : e.target.value,
-        // dateofbirtd : dateofbirtd,
-        // gender: gender
-
-      
     })
-    
-
   }
-  
-// const onChange = (value,dateString)=>{
-//   // console.log( dateString);
-//   console.log( typeof(dateString));
-//   setDateofbirtd(dateString)
-  
-// }
-
-// const onGenderChange=(e)=>{
-//   console.log(typeof(e.target.value));
-//   setGender(e.target.value)
-
-// }
+  useEffect(() => {
+   setFormValue({
+     ...formValue,
+     roles:'0',
+     status:'1'
+   })
+  }, [])
 const handleSubmit = (e) => {
   e.preventDefault();
   console.log(formValue)
   axios.post('https://localhost:44315/api/taikhoans/register', formValue)
   .then((res) => {
-    alert("đăng kí thành công")
-    // console.log(res.data);
-    // this.props.history.push("/");
-    // window.location.reload();
+    console.log(res.data)
+    if (res.data == false) {
+      alert('Username tồn tại')
+    }
+    else {
+      alert('đăng kí thành công')
+    history.push("/login")
+    } 
   })
-  .catch(() => alert("Tài khoản đã tồn tại"));
-
-
 }
-
-    const dateFormat = 'DD-MM-YYYY';
     return (
       <div className="container loginpage">
          <div className="d-flex justify-content-center h-100">
@@ -87,12 +71,12 @@ const handleSubmit = (e) => {
                     type="text"
                     className="form-control"
                     placeholder="full name"
-                    name="fullname"
+                    name="hoten"
                     required
                     
-                    // lag vcl
+                  
                     onChange={handleChange}
-                    value={formValue.fullname}
+                    // value={formValue.fullname}
                   />
                 </div>
                
@@ -108,7 +92,7 @@ const handleSubmit = (e) => {
                     name="username"
                     required
                     onChange={handleChange}
-                    value={formValue.username}
+                    // value={formValue.username}
                   />
                 </div>
                
@@ -121,10 +105,10 @@ const handleSubmit = (e) => {
                     type="password"
                     className="form-control"
                     placeholder="password"
-                    name="password"
+                    name="pass"
                     required
                     onChange={handleChange}
-                    value={formValue.password}
+                    
                   />
                 </div>
                 <div className="input-group form-group">
@@ -143,13 +127,6 @@ const handleSubmit = (e) => {
                     value={passwordConfirm}
                   />
                 </div>
-                {/* <div className="date-gender">
-                <DatePicker onChange={onChange} style={{width:170,height:40}} format={dateFormat} />
-                <Radio.Group style={{marginTop:5}} onChange={onGenderChange}>
-                <Radio value="Male"><a style={{color:'white'}}>Male</a></Radio>
-                <Radio value="Female"><a style={{color:'white'}}>Female</a></Radio>
-                </Radio.Group>
-                </div> */}
                 <div className="form-group">
                   <Button
                     type="submit"

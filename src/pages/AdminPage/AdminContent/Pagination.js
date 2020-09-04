@@ -1,5 +1,5 @@
 import React from "react";
-import {Button} from 'antd'
+import {Button} from "antd";
 export const Pagination = ({ dataPerPage, totalData,paginate }) => {
   const pageNumber = [];
   for (let i = 1; i <= Math.ceil(totalData / dataPerPage); i++) {
@@ -11,7 +11,7 @@ export const Pagination = ({ dataPerPage, totalData,paginate }) => {
       <ul className="pagination">
         {pageNumber.map((number) => (
           <li key={number} className="page-item">
-            <Button
+            <Button 
             className="page-link" 
             onClick={() => paginate(number)}
             >

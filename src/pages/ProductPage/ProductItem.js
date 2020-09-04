@@ -7,14 +7,15 @@ import { Link } from "react-router-dom";
          <div className="product-item">
           <div className="pi-img-wrapper">
             <img src={product.hinhanh} className="img-responsive" alt="#" />
-
-            <div></div>
+           
           </div>
+          <div style={{height:45}}>
           <Link to={"/productdetail/" + product.idsp}>
             <h3 style={{ marginTop: 10 }}>
               <p>{product.tensp}</p>
             </h3>
           </Link>
+          </div>
           <div className="pi-price">{product.gia}</div>
           <p className="btn add2cart" onClick={()=>onAddToCart(product)}>
             Add to cart

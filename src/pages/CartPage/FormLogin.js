@@ -93,7 +93,6 @@ export const FormLogin = () => {
           Submit
         </Button>
         <Link to="/register">
-          {" "}
           <span style={{ marginLeft: 30 }}>Tạo tài khoản</span>{" "}
         </Link>
       </Form.Item>

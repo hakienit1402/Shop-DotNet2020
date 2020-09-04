@@ -61,19 +61,13 @@ const ProductDetailPage = (props) => {
                        
                             <Row className="mota">
                             <h4> 
-                                aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                                aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                                aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                                aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                               {data.mota}
                             </h4>
                             </Row>
                             <Row className="gia">
                             <h4>PRICE: {data.gia} VND</h4> 
                             </Row>
                             <p className="btn addcart">Add to cart</p>
-                            
-                      
-                     
                     </div>
                 </div>
 

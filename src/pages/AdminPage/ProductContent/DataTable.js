@@ -1,32 +1,42 @@
 import React from 'react'
 import {Button} from 'antd';
-
-export const DataTable = ({data,onEdit,onDelete}) => {
+import { DeleteOutlined,EditOutlined,EyeOutlined} from "@ant-design/icons";
+export const DataTable = ({data,onEdit,onDelete,onView,requestSort,requestSortID}) => {
+    const id = 0;
     return (
-        <div>
-           
-            <table className="table table-hover">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>NAME</th>
-                        <th>IMAGE</th>
-                        <th>PRICE</th>
-                        <th>QUANTITY</th>
-                        <th>ACTION</th>
+        <div> 
+            <table className="table  table-bordered table-hover" >
+                <thead style={{textAlign:'center'}}>
+                    <tr >
+                        <th onClick={requestSortID}>ID</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Hình ảnh</th>
+                        <th onClick={requestSort}>Giá</th>
+                        <th>Mô tả</th>
+                        <th>Trạng thái</th>
+                        <th>Tác vụ</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map((item)=>(
-                        <tr key={item.idsp}>
+                    {data.map((item,index)=>(
+                        <tr key={index}>
                             <td> {item.idsp} </td>
+                            {/* <td> {} </td> */}
                             <td> {item.tensp} </td>
-                            <td> <img src={item.hinhanh} alt="" style={{width:50,height:80}}/> </td>
+                            <td> <img src={item.hinhanh} alt="" style={{width:80,height:90}}/> </td>
                             <td> {item.gia}</td>
-                            <td> {item.sl}</td>
                             <td> 
-                            <Button type="primary" onClick={() =>onEdit(item)}>Sửa</Button>
-                            <Button type="primary"onClick={() =>onDelete(item)}>Xóa</Button>
+                                <span style={{display:"block"}}> - Màu: {item.mausac}</span>
+                                <span style={{display:"block"}}> - Màn hình: {item.manhinh}</span>
+                                <span style={{display:"block"}}> - Hệ điều hành: {item.hedieuhanh}</span>
+                            </td>
+                            {item.sl == 0 ?  <td style={{color:'red'}}>Ngừng kinh doanh</td> : <td> <span style={{color:'green',display:"block"}}>Còn hàng</span> <span style={{display:"block"}}>{item.sl} sản phẩm</span> </td>}
+                           
+                            <td style={{width:100,textAlign:'center'}}> 
+                            <a onClick={() =>onView(item)} ><EyeOutlined  style={{color:'blue', fontSize: 20, padding:3}}/></a>
+                            <a onClick={() =>onEdit(item)}><EditOutlined style={{color:'yellow', fontSize: 20,padding:3}}/></a>
+                            <a onClick={() =>onDelete(item)} ><DeleteOutlined style={{color:'red', fontSize: 20,padding:3}}/></a>
+                            
                             </td>
 
                         </tr>

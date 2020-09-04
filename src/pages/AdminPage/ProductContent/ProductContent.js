@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import SweetAlert from "sweetalert-react";
+import "./../../../../node_modules/sweetalert/dist/sweetalert.css";
 import { PlusOutlined, LoadingOutlined } from "@ant-design/icons";
-import { Modal, Upload, message, Input, Button } from "antd";
+import { Modal, Upload, message, Input, Drawer, Descriptions, Row } from "antd";
 import { DataTable } from "./DataTable";
 import { Pagination } from "./Pagination";
 import { Addproduct } from "../Addpage/Addproduct";
@@ -38,27 +40,29 @@ const ProductContent = () => {
       // Get this url from response in real world.
       getBase64(
         info.file.originFileObj,
-        
+
         (imageUrl) => setImageUrl(imageUrl),
+        // (imageUrl) => setdataUpdate([
+        //   ...dataUpdate,
+        //   {hinhanh: imageUrl}
+        // ]),
         setLoading(false)
       );
     }
   };
-  // const [dataAdd, setdataAdd] = useState([
-  //   {
-  //     tensp: "",
-  //     hinhanh: "",
-  //     gia: "",
-  //   },
-  // ]);
-  // const [dataForm, setdataForm] = useState([]);
+
+  const [currentSort,setCurrentSort] = useState('default')
   const [dataUpdate, setdataUpdate] = useState([]);
   const [searchValue, setsearchValue] = useState("");
   const [visible, setVisible] = useState(false);
+  const [openView, setOpenView] = useState(false);
   const [confirmLoading, setconfirmLoading] = useState(false);
   const [currentPage, setcurrentPage] = useState([1]);
   const [dataPerPage] = useState([5]);
-
+  const [dataView, setDataView] = useState([]);
+  const [showAlert, setShowAlert] = useState(false);
+  const [textAlert, setTextAlert] = useState("");
+  const [dataDeleteQuanlity, setDataDeleteQuanlity]= useState([])
   useEffect(() => {
     const fetchData = async () => {
       const res = await axios.get(`https://localhost:44315/api/sanphams`);
@@ -80,13 +84,7 @@ const ProductContent = () => {
       [e.target.name]: e.target.value,
     });
   };
-  // const onChangDataAdd = (e) => {
-  //   setdataForm({
-  //     ...dataForm,
-  //     [e.target.name]: e.target.value,
-      
-  //   });
-  // };
+
   const onEdit = (dataEdit) => {
     console.log(dataEdit);
     setVisible(true);
@@ -94,23 +92,46 @@ const ProductContent = () => {
     setImageUrl(dataEdit.hinhanh);
   };
   //delete product
-  const onDelete = (dataEdit) => {
-
-    console.log(dataEdit.idsp)
-    const key ='add';
-    message.loading({ content: 'Xóa sản phẩm......',key , style: {
-     marginTop: '14vh', fontSize:"20px"
-   },});
+  const onDeleteProduct = () => {
+    console.log(dataDeleteQuanlity.idsp)
+    setShowAlert(false);
+    const key = "add";
+    message.loading({
+      content: "Xóa sản phẩm......",
+      key,
+      style: {
+        marginTop: "14vh",
+        fontSize: "17px",
+      },
+    });
     setTimeout(() => {
-        axios.delete(`https://localhost:44315/api/sanphams/${dataEdit.idsp}`).then(res => { 
-            message.success({ content: 'Xóa thành công !', key, duration: 2, style: {
-                marginTop: '15vh', fontSize:"20px"
-              }, });
-          })
-          window.location.reload()
-       }, 1000);
+      let dataIndex = data.findIndex((x) => x.idsp === dataDeleteQuanlity.idsp);
+      if (dataIndex !== -1) {
+        data[dataIndex].sl = 0;
+      }
+      message.success({
+        content: "Sản phẩm ngừng kinh doanh !",
+        key,
+        duration: 2,
+        style: {
+          marginTop: "15vh",
+          fontSize: "17px",
+        },
+      });
+      axios.put(`https://localhost:44315/api/sanphams/${dataDeleteQuanlity.idsp}`,dataDeleteQuanlity).then(res => {
+        message.success({ content: 'Sản phẩm ngừng kinh doanh !', key, duration: 2, style: {
+            marginTop: '15vh', fontSize:"17px"
+          }, });
+      })
+      window.location.reload()
+    }, 1000);
   };
-  
+
+  const onDelete = (dataEdit) => {
+    setShowAlert(true);
+    setTextAlert(dataEdit.tensp)
+    setDataDeleteQuanlity({...dataEdit,sl:0})
+  };
 
   const uploadButton = (
     <div>
@@ -121,13 +142,22 @@ const ProductContent = () => {
   // edit
   const handleEdit = () => {
     setconfirmLoading(true);
-
     let dataIndex = data.findIndex((x) => x.idsp === dataUpdate.idsp);
     if (dataIndex !== -1) {
       data[dataIndex].tensp = dataUpdate.tensp;
       data[dataIndex].gia = dataUpdate.gia;
+      data[dataIndex].sl = dataUpdate.sl;
       data[dataIndex].hinhanh = imageUrl;
     }
+    const key = "add";
+    message.loading({
+      content: "Chỉnh sửa thông tin sản phẩm......",
+      key,
+      style: {
+        marginTop: "14vh",
+        fontSize: "15px",
+      },
+    });
     setTimeout(() => {
       setconfirmLoading(false);
       setVisible(false);
@@ -137,40 +167,83 @@ const ProductContent = () => {
           dataUpdate
         )
         .then((res) => {
-          console.log(res.data);
+          message.success({
+            content: "Chỉnh sửa thành công !",
+            key,
+            duration: 2,
+            style: {
+              marginTop: "15vh",
+              fontSize: "15px",
+            },
+          });
         });
     }, 2000);
   };
-  //add
-  // const handleAdd = () => {
-  //   setconfirmLoading(true);
-    
 
-  //   setTimeout(() => {
-  //     setconfirmLoading(false);
-  //     console.log(dataAdd);
-  //     setVisible(false);
-  //     // axios
-  //     //   .post(
-  //     //     `https://localhost:44315/api/sanphams`,
-  //     //     dataAdd
-  //     //   )
-  //     //   .then((res) => {
-  //     //     console.log(res.data);
-  //     //   });
-  //   }, 2000);
-  // };
   const handleCancel = () => {
     setVisible(false);
   };
 
   // search
+const requestSort = () => {
+		let nextSort;
+		if (currentSort === 'down') nextSort = 'up';
+		else if (currentSort === 'up') nextSort = 'default';
+		else if (currentSort === 'default') nextSort = 'down';
+
+  setCurrentSort(nextSort)
+  setData([...data].sort(sortTypes[currentSort].fn))
+  };
+  const requestSortID = () => {
+    let nextSort;
+		if (currentSort === 'down') nextSort = 'up';
+		else if (currentSort === 'up') nextSort = 'default';
+		else if (currentSort === 'default') nextSort = 'down';
+
+  setCurrentSort(nextSort)
+  setData([...data].sort(sortTypesID[currentSort].fn))
+  }
+  const sortTypes = {
+    up: {
+      class: 'sort-up',
+      fn: (a, b) => a.gia - b.gia
+    },
+    down: {
+      class: 'sort-down',
+      fn: (a, b) => b.gia - a.gia
+    },
+    default: {
+      class: 'sort',
+      fn: (a, b) => a
+    }
+  };
+  const sortTypesID = {
+    up: {
+      class: 'sort-up',
+      fn: (a, b) => a.idsp - b.idsp
+    },
+    down: {
+      class: 'sort-down',
+      fn: (a, b) => b.idsp - a.idsp
+    },
+    default: {
+      class: 'sort',
+      fn: (a, b) => a
+    }
+  };
 
   // console.log(searchValue);
   const filterDataSearch = data.filter((filterData) => {
-    return filterData.tensp.toLowerCase().includes(searchValue.toLowerCase());
+    return filterData.tensp.toLowerCase().includes(searchValue.toLowerCase()),
+    filterData.gia.toString().includes(searchValue)
   });
-
+  const onView = (itemView) => {
+    setOpenView(true);
+    setDataView(itemView);
+  };
+  const onCloseView = () => {
+    setOpenView(false);
+  };
   // render
   return (
     <div>
@@ -185,7 +258,7 @@ const ProductContent = () => {
         {/* <Button type="primary">
           Add
         </Button> */}
-        <Addproduct/>
+        <Addproduct />
         <Search
           placeholder="Search sản phẩm..."
           onSearch={(value) => setsearchValue(value)}
@@ -198,6 +271,10 @@ const ProductContent = () => {
             data={filterDataSearch.slice(begin, end)}
             onEdit={onEdit}
             onDelete={onDelete}
+            onView={onView}
+            requestSort={requestSort}
+            requestSortID={requestSortID}
+           
           />
           <Pagination
             dataPerPage={dataPerPage}
@@ -211,6 +288,10 @@ const ProductContent = () => {
             data={data.slice(begin, end)}
             onEdit={onEdit}
             onDelete={onDelete}
+            onView={onView}
+            requestSort={requestSort}
+            requestSortID={requestSortID}
+          
           />
           <Pagination
             dataPerPage={dataPerPage}
@@ -219,7 +300,17 @@ const ProductContent = () => {
           />
         </>
       )}
-
+      {/* alert delete */}
+      <SweetAlert
+        show={showAlert}
+        title="Bạn có muốn xóa sản phẩm"
+        text={textAlert}
+        showCancelButton
+        onOutsideClick={() => setShowAlert(false)}
+        onEscapeKey={() => setShowAlert(false)}
+        onCancel={() => setShowAlert(false)}
+        onConfirm={() => onDeleteProduct()}
+      />
       {/* Modal edit */}
       <Modal
         title="Sửa sản phẩm"
@@ -229,103 +320,130 @@ const ProductContent = () => {
         onCancel={handleCancel}
       >
         <form>
-          <div className="form-group">
-            <label htmlFor="">Name</label>
-            <input
-              type="text"
-              className="form-control"
-              name="tensp"
-              onChange={onChangData}
-              value={dataUpdate.tensp}
-              placeholder="Input field"
-            />
-            <label htmlFor="">Image</label>
-            <Upload
-              name="avatar"
-              listType="picture-card"
-              className="avatar-uploader"
-              showUploadList={false}
-              action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-              beforeUpload={beforeUpload}
-              onChange={handleChange}
+          <div>
+            <Descriptions
+              title="Chỉnh sửa thông tin sản phẩm"
+              layout="vertical"
+              size="middle"
             >
-              {imageUrl ? (
-                <img src={imageUrl} alt="avatar" style={{ width: "100%" }} />
-              ) : (
-                uploadButton
-              )}
-            </Upload>
-            <label htmlFor="">Price</label>
-            <input
-              type="text"
-              className="form-control"
-              name="gia"
-              onChange={onChangData}
-              value={dataUpdate.gia}
-              placeholder="Input field"
-            />
-            <label htmlFor="">Types</label>
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Input field"
-            />
+              <Descriptions.Item label="Tên sản phẩm" style={{ width: 400 }}>
+                <input
+                  style={{ width: 350 }}
+                  type="text"
+                  className="form-control"
+                  name="tensp"
+                  onChange={onChangData}
+                  value={dataUpdate.tensp}
+                />
+              </Descriptions.Item>
+
+              <Descriptions.Item label="Hình ảnh">
+                <Upload
+                  name="avatar"
+                  listType="picture-card"
+                  className="avatar-uploader"
+                  showUploadList={false}
+                  action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                  beforeUpload={beforeUpload}
+                  onChange={handleChange}
+                >
+                  {imageUrl ? (
+                    <img
+                      src={imageUrl}
+                      alt="avatar"
+                      style={{ width: "100%" }}
+                    />
+                  ) : (
+                    uploadButton
+                  )}
+                </Upload>
+              </Descriptions.Item>
+              <br />
+              <Descriptions.Item label="Giá">
+                <input
+                  type="text"
+                  className="form-control"
+                  name="gia"
+                  onChange={onChangData}
+                  value={dataUpdate.gia}
+                />{" "}
+                <p
+                  style={{ fontWeight: "bold", color: "black", marginLeft: 10 }}
+                >
+                  {" "}
+                  VND{" "}
+                </p>
+              </Descriptions.Item>
+              <Descriptions.Item label="Số lượng">
+                <input
+                  type="text"
+                  className="form-control"
+                  name="sl"
+                  onChange={onChangData}
+                  value={dataUpdate.sl}
+                />
+              </Descriptions.Item>
+            </Descriptions>
           </div>
         </form>
       </Modal>
-      {/* <Modal
-        title="Thêm sản phẩm"
-        visible={visible}
-        onOk={handleAdd}
-        confirmLoading={confirmLoading}
-        onCancel={handleCancel}
+      {/* view  */}
+      <Drawer
+        width={800}
+        title="Basic Drawer"
+        placement="right"
+        closable={false}
+        onClose={onCloseView}
+        visible={openView}
       >
-        <form>
-          <div className="form-group">
-            <label htmlFor="">Name</label>
-            <input
-              type="text"
-              name="tenspnew"
-              className="form-control"
-              onChange={onChangDataAdd
-              }
-              value={dataAdd.tensp}
-              placeholder="Input field"
+        <Descriptions
+          title="Thông tin sản phẩm"
+          layout="vertical"
+          bordered
+          size="small"
+        >
+          <Descriptions.Item label="Tên sản phẩm">
+            {dataView.tensp}
+          </Descriptions.Item>
+          <Descriptions.Item label="Hình ảnh">
+            <img
+              src={dataView.hinhanh}
+              alt={dataView.tensp}
+              style={{ width: 80, height: 100 }}
             />
-            <label htmlFor="">Image</label>
-            <Upload
-              name="avatar"
-              listType="picture-card"
-              className="avatar-uploader"
-              showUploadList={false}
-              action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-              beforeUpload={beforeUpload}
-              onChange={handleChange}
-            >
-              {dataAdd.hinhanh ? (
-                <img src={dataAdd.hinhanh} alt="avatar" style={{ width: "100%" }} />
-              ) : (
-                uploadButton
-              )}
-            </Upload>
-            <label htmlFor="">Price</label>
-            <input
-              type="text"
-              className="form-control"
-              name="gianew"
-              onChange={onChangDataAdd}
-              value={dataAdd.gia}
-              placeholder="Input field"
-            />
-            <label htmlFor="">Types</label>
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Input field"
-            />
-          </div>
-        </form>
-      </Modal> */}
+          </Descriptions.Item>
+          <Descriptions.Item label="Giá">{dataView.gia}</Descriptions.Item>
+          <Descriptions.Item label="Mô tả">{dataView.mota}</Descriptions.Item>
+          <Descriptions.Item label="Màu sắc">
+            {dataView.mausac}
+          </Descriptions.Item>
+          <Descriptions.Item label="Màn hình">
+            {dataView.manhinh}
+          </Descriptions.Item>
+          <Descriptions.Item label="Hệ điều hành">
+            {dataView.hedieuhanh}
+          </Descriptions.Item>
+          <Descriptions.Item label="Camera">
+            {dataView.camera}
+          </Descriptions.Item>
+          <Descriptions.Item label="Cấu hình">
+            {dataView.cauhinh}
+          </Descriptions.Item>
+          <Descriptions.Item label="Pin">{dataView.pin}</Descriptions.Item>
+
+          {dataView.sl == 0 ? (
+            <Descriptions.Item label="Trạng thái">
+              {" "}
+              Ngừng kinh doanh{" "}
+            </Descriptions.Item>
+          ) : (
+            <Descriptions.Item label="Trạng thái">
+              {" "}
+              Còn hàng: {dataView.sl} sản phẩm{" "}
+            </Descriptions.Item>
+          )}
+        </Descriptions>
+      </Drawer>
     </div>
   );
 };
