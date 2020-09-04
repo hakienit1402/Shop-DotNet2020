@@ -1,111 +1,98 @@
-import { Comment, Avatar, Form, Button, List, Input, Rate } from "antd";
+import { Comment, Avatar, Form, Button, List, Input, Rate,Descriptions,message } from "antd";
 import moment from "moment";
-import React, { Component } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { values } from 'lodash';
 
 const { TextArea } = Input;
 
-const CommentList = ({ comments, count }) => (
-  <List
-    dataSource={comments}
-    header={`${comments.length} ${comments.length > 1 ? "Reviews" : "Review"}`}
-    itemLayout="horizontal"
-    renderItem={(props) => (
-      <div>
-        <Comment {...props} />
-        <br />
-        <Rate disabled defaultValue={count} />
-      </div>
-    )}
-  />
-);
+const Review = ({idsp,feedback}) => {
 
-const Editor = ({ onChange, onSubmit, submitting, value }) => (
-  <>
-    <Form.Item>
-      <TextArea
-        rows={2}
-        onChange={onChange}
-        value={value}
-        style={{ width: 500 }}
+  const [feedbacks,setFeedbacks]=useState([])
+  const [idkh, setIdkh] = useState(
+    JSON.parse(localStorage.getItem("IDKH"))
+      ? JSON.parse(localStorage.getItem("IDKH"))
+      : 0
+  );
+  useEffect(() => {
+    setFeedbacks(feedback)
+  }, [feedback]);
+    console.log(feedback)
+  const handleSubmit = (values) => {
+    console.log(values)
+    setFeedbacks([...feedbacks,
+    
+      {
+        idkh:idkh,
+        idsp: idsp,
+        message: values.message,
+        rating: values.rating,
+        date: Date()
+     } 
+    ])
+    axios.post( `https://localhost:44315/api/feedbacks`, {
+      idkh:idkh,
+      idsp: idsp,
+      message: values.message,
+      rating: values.rating,
+      date: Date()
+   } ).then((res)=> {
+    message.success({
+      content: "Thêm đáng giá thành công !",
+      style: {
+        marginTop: "25vh",
+        float: "right",
+        fontSize: "17px",
+      },
+    });
+    // window.location.reload()
+  })
+  
+  };
+  return (
+    <>
+      <Comment
+        avatar={
+          <Avatar
+            src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+            alt="Han Solo"
+          />
+        }
+        content={
+       
+          <Form onFinish={handleSubmit} >
+          <Form.Item name='message'>
+            <TextArea
+              rows={2}
+              style={{ width: 500 }}
+            />
+          </Form.Item>
+          <Form.Item name='rating'>
+          <Rate value={1} />
+          </Form.Item>
+          <Form.Item >
+            <Button
+              htmlType="submit"
+              type="primary"
+            >
+              Đánh giá sản phẩm
+            </Button>
+          </Form.Item>
+          </Form>
+        
+         
+        }
       />
-    </Form.Item>
-    <Form.Item>
-      <Button
-        htmlType="submit"
-        loading={submitting}
-        onClick={onSubmit}
-        type="primary"
-      >
-        Add Comment
-      </Button>
-    </Form.Item>
-  </>
-);
-
-class Review extends Component {
-  state = {
-    comments: [],
-    submitting: false,
-    value: "",
-    count: 1,
-  };
-
-  handleSubmit = (count) => {
-    if (!this.state.value) {
-      return;
-    }
-
-    this.setState({
-      submitting: true,
-    });
-
-    setTimeout(() => {
-      this.setState({
-        submitting: false,
-        value: "",
-
-        comments: [
-          {
-            // actions: [
-            //   <Rate disabled defaultValue={this.state.count} />,
-            // ],
-            author: "Hà Kiên",
-
-            avatar:
-              "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
-            content: (
-              <div>
-                {this.state.value}
-                {/* <Rate disabled defaultValue={this.state.count} /> */}
-              </div>
-            ),
-            datetime: moment().fromNow(),
-          },
-          ...this.state.comments,
-        ],
-      });
-    }, 1000);
-  };
-
-  handleChange = (e) => {
-    this.setState({
-      value: e.target.value,
-    });
-  };
-
-  handleRateChange = (value) => {
-    this.setState({
-      count: value,
-    });
-    console.log(this.state.count);
-  };
-
-  render() {
-    const { comments, submitting, value, count } = this.state;
-
-    return (
-      <>
-        <Comment
+      
+      <List
+    className="comment-list"
+    header={`${feedbacks.length} đánh giá`}
+    itemLayout="horizontal"
+    dataSource={feedbacks}
+    renderItem={item => (
+      <li>
+       <Comment
+          author={item.idkh}
           avatar={
             <Avatar
               src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
@@ -113,21 +100,19 @@ class Review extends Component {
             />
           }
           content={
-            <Editor
-              onChange={this.handleChange}
-              onSubmit={this.handleSubmit}
-              submitting={submitting}
-              value={value}
-            />
-          }
+            <Descriptions bordered >
+            <Descriptions.Item label= {item.message} style={{width: 500}}>  <Rate disable value={item.rating} /> </Descriptions.Item>
+            </Descriptions>
+           }
+          datetime={item.date}
         />
-        <Rate onChange={this.handleRateChange} value={count} />
-        {comments.length > 0 && (
-          <CommentList comments={comments} count={count} />
-        )}
-      </>
-    );
-  }
-}
+        
+      </li>
+    )}
+  />
+       
+    </>
+  );
+};
 
 export default Review;

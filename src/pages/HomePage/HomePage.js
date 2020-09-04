@@ -4,17 +4,14 @@ import { Divider, Button } from "antd";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import ProductContainer from "../ProductPage/ProductContainer";
-//import ProductList from "../ProductPage/ProductList";
-import ProductContainerLimit from "./../ProductPage/ProductContainerLimit";
+import ProductSlide from "../ProductPage/ProductSlide";
 
 const HomePage = ({ search }) => {
   const [products, setProducts] = useState([]); 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios.get(`https://localhost:44315/api/sanphams`);
+      const res = await axios.get(`https://localhost:44315/api/sanphams/top`);
       setProducts(res.data);
-      // console.log(res);
-      // console.log(res.data);
     };
     fetchData();
   }, []);
@@ -51,16 +48,11 @@ const HomePage = ({ search }) => {
               background: "lightgray",
             }}
           >
-            TOP PRODUCT
+            Sản phẩm mới
           </Divider>
 
           <ProductContainer search={search} products={filterData} />
 
-          <Link to="/product">
-            <Button type="primary" className="view-more">
-              Xem thêm
-            </Button>
-          </Link>
         </>
       )}
 
@@ -75,6 +67,8 @@ const HomePage = ({ search }) => {
       >
         THƯƠNG HIỆU
       </Divider>
+      <ProductSlide style={{marginBottom:200}}/>
+      <hr/>
     </div>
   );
 };

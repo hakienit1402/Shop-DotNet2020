@@ -202,7 +202,7 @@ const ProductTypeContent = () => {
               <br />
               <Descriptions.Item label="Mô tả">
                 <textarea
-                style={{width:500}}
+                style={{width:500,height:160}}
                   type="text"
                   className="form-control"
                   name="mota"

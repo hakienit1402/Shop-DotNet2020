@@ -10,6 +10,7 @@ import CustomerPage from "./pages/CustomerPage/CustomerPage";
 import AdminPage from "./pages/AdminPage/AdminPage";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import NotFound from "./pages/404/NotFound";
+import {About} from "./pages/About/About";
 import LoginPage from "./pages/Login-Register/LoginPage";
 import RegisterPage from "./pages/Login-Register/RegisterPage";
 import ScrollToTop from "./ScrollToTop";
@@ -69,7 +70,7 @@ function App() {
           />
           <Route path="/account" component={CustomerPage} />
           <Route path="/admin" component={AdminPage} />
-          <Route path="/aboutus" component={NotFound} />
+          <Route path="/aboutus" component={About} />
           <Route path="/login" component={LoginPage} />
           <Route path="/register" component={RegisterPage} />
           <Route path="/checkmail" component={CheckMail} />

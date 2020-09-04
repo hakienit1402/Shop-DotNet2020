@@ -325,8 +325,8 @@ input:focus {
 }
 .tabs {
   background-color: #ffffff;
-  height: 500px;
-  min-height: 500px;
+  height: 400px;
+  min-height: 400px;
   overflow: auto;
   padding-left: 20px;
   padding-top: 10px;
@@ -344,7 +344,7 @@ input:focus {
   box-shadow: 5px 10px lightgray;
 }
 .imageDetails img {
-  width: 260px;
+  width: 300px;
   height: 400px;
 }
 .infoDetails {
@@ -360,12 +360,11 @@ input:focus {
   border: 1px #ededed solid;
   padding: 10px 68px;
   text-transform: uppercase;
-  margin-top: 20px;
   font-size: 15px;
   font-weight: bolder;
   position: absolute;
   z-index: 1;
-  margin-top: 100px;
+  margin-top: 50px;
 }
 .addcart:hover {
   color: #fff;
@@ -383,7 +382,7 @@ input:focus {
 .gia {
   position: absolute;
   z-index: 1;
-  margin-top: 60px;
+  margin-top: 0px;
 }
 .info-review {
   margin-top: 20px;
@@ -738,4 +737,145 @@ input:focus {
 .ant-modal{
   width: 700px !important;
     transform-origin: 569px 236px !important
+}
+/*  */
+
+ .rowfooter{
+	 display: flex;
+	 flex-wrap: wrap;
+	 margin-right: -15px;
+	 margin-left: -15px;
+ }
+ .col-wrap{
+	 display: table;
+	 width: 100%;
+ }
+ .footercol {
+    display: table-cell;
+    padding: 5px;
+}
+.center {
+  display: block;
+  margin-right: auto;
+  width: 50%;
+}
+.text-footer{
+	text-transform: uppercase;
+	font-size: 13px;
+}
+#lib-footer h4 {
+	margin-bottom: 30px;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	font-size: 16px;
+}
+h4{
+	  font-weight: 400;
+}
+#lib-footer ul{
+	margin: 0;
+	padding: 0;
+}
+#lib-footer li{
+	margin: 0 0 6px 0;
+	list-style: none;
+	display: block;
+	text-transform: uppercase;
+	font-size: 13px;
+	margin-left: inherit;
+}
+#lib-footer a{
+	color: black;
+}
+
+#lib-footer iconsocial{
+	margin: 0;
+	padding: 0;
+}
+#lib-footer .copy{
+	padding: .1em 0 ;
+}
+.iconsocial li a i{
+	font-size: 25px;
+}
+ul.horizontal,
+ul.horizontal li {
+       margin: 0;
+       padding: 0;
+}
+ul.horizontal {
+       list-style-type: none;
+       width: 200px;
+       overflow: auto;
+       margin: 0 auto;
+}
+ul.horizontal li {
+       float: left;
+       width: 40px;
+       height:40px;
+       margin: 0 1px 1px 0;
+}
+
+
+.d-flex{
+	display: flex!important;
+}
+.banner-text
+{
+	font-size: 36px;
+	color: #fff;
+	padding-left: 4%;
+	padding-top: 100px;
+	padding-bottom: 100px;
+}
+.home-header{
+	background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5))  ;
+	background-position: center;
+	background-size: cover;
+}
+.zoom:hover {
+  transform: scale(1.1); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+
+#lib-section .hoatdong:hover {
+  color: blue;
+
+}
+#lib-section h6{
+	  text-align: center;
+	
+}
+#lib-section img{
+	display: block;
+	margin-left:auto;
+	margin-right: auto;
+}
+#lib-section img{
+  width : 75%;
+}
+ #lib-section .imghd{
+  width : 100%;
+  
+}
+#lib-section .center{
+ text-align: center;
+}
+.zoom {
+ transition: transform .2s;
+ width: 5px;
+ margin: 0 auto;
+ margin-bottom: 20px;
+}
+#lib-section a{
+	color: black;
+}
+
+#lib-section iconsocial{
+	margin: 0;
+	padding: 0;
+}
+#lib-section p{
+	margin-bottom: 30px;
+	margin-left: 30px;
+	font-size: 16px;
 }

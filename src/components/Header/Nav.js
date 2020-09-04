@@ -66,7 +66,7 @@ const Nav = ({count,onSearch}) => {
       >
         <Menu.Item key="logo">
           <Link to="/" style={{ fontSize: 20, fontWeight: "bolder" }}>
-            LOGO
+           <img src="./../logo.png" alt="" style={{height:60,width:90}}/>
           </Link>
         </Menu.Item>
         <Menu.Item key="product">

@@ -60,10 +60,9 @@ export const Addproduct = () => {
             message.success({ content: 'Thêm thành công !', key, duration: 2, style: {
                 marginTop: '15vh', fontSize:"20px"
               }, });
+              window.location.reload()
           })
-          // .catch (message.success({ content: 'Thêm thất bại !', key, duration: 2, style: {
-          //   marginTop: '15vh', fontSize:"20px"
-          // }, }))
+         
        }, 2000);
     
   };
@@ -109,13 +108,13 @@ export const Addproduct = () => {
         <PlusOutlined /> Thêm sản phẩm
       </Button>
       <Drawer
-        title="Create a new account"
+        title="Thêm sản phẩm"
         width={720}
         onClose={onClose}
         visible={visible}
         bodyStyle={{ paddingBottom: 80 }}
         footer={
-            <Button onClick={onSave}>Save</Button>
+            <Button type='primary' onClick={onSave}>LƯU</Button>
         }
       >
         <Form layout="vertical" hideRequiredMark onFinish={onFinish}>
@@ -123,7 +122,7 @@ export const Addproduct = () => {
             <Col span={12}>
               <Form.Item
                 name="tensp"
-                label="Name"
+                label="Tên sản phẩm"
                 rules={[
                   {
                     required: true,
@@ -137,7 +136,7 @@ export const Addproduct = () => {
             <Col span={12}>
               <Form.Item
                 name="idth"
-                label="Owner"
+                label="Thương hiệu"
                 rules={[{ required: true, message: "Chọn thương hiệu" }]}
               >
                 <Select placeholder="Thương hiệu">
@@ -195,14 +194,121 @@ export const Addproduct = () => {
               </Form.Item>
             </Col>
           </Row>
-         
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item
+                name="mota"
+                label="Mô tả sản phẩm"
+                rules={[
+                  {
+                    required: true,
+                    message: "Mô tả không được để trống!",
+                  },
+                ]}
+              >
+                <Input placeholder="Mô tả sản phẩm" />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+            <Form.Item
+                name="cauhinh"
+                label="Cấu hình"
+                rules={[
+                  {
+                    required: true,
+                    message: "Cấu hình không được để trống!",
+                  },
+                ]}
+              >
+                <Input placeholder="Cấu hình sản phẩm" />
+              </Form.Item>
+            </Col>
+           
+          </Row>
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item
+                name="mausac"
+                label="Màu sắc"
+                rules={[
+                  {
+                    required: true,
+                    message: "Màu sản phẩm không được để trống!",
+                  },
+                ]}
+              >
+                <Input placeholder="Màu sắc sản phẩm" />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+            <Form.Item
+                name="hedieuhanh"
+                label="Hệ điều hành"
+                rules={[
+                  {
+                    required: true,
+                    message: "Hệ điều hành không được để trống!",
+                  },
+                ]}
+              >
+                <Input placeholder="Hệ điều hành sản phẩm" />
+              </Form.Item>
+            </Col>
+            
+           
+           
+          </Row>
+          <Row gutter={16}>
+          <Col span={12}>
+              <Form.Item
+                name="camera"
+                label="Camera trước và sau"
+                rules={[
+                  {
+                    required: true,
+                    message: "Camera không được để trống!",
+                  },
+                ]}
+              >
+                <Input placeholder="Camera sản phẩm" />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+            <Form.Item
+                name="manhinh"
+                label="Màn hình"
+                rules={[
+                  {
+                    required: true,
+                    message: "Màn hình không được để trống!",
+                  },
+                ]}
+              >
+                <Input placeholder="Màn hình sản phẩm" />
+              </Form.Item>
+            </Col>
+            </Row>
+            <Col span={12}>
+            <Form.Item
+                name="pin"
+                label="Dung lượng pin"
+                rules={[
+                  {
+                    required: true,
+                    message: "Dung lượng không được để trống!",
+                  },
+                ]}
+              >
+                <Input placeholder="Dung lượng pin sản phẩm" />
+              </Form.Item>
+            </Col>
           <Row gutter={16}>
             <Col span={24}>
               <Form.Item>
                 <Button onClick={onClose} style={{ marginRight: 8 }}>
-                  Cancel
+                  Thoát
                 </Button>
-                <Button htmlType="submit">Submit</Button>
+                <Button htmlType="submit">Xác nhận</Button>
               </Form.Item>
             </Col>
           </Row>

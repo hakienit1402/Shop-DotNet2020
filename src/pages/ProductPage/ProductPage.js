@@ -160,18 +160,6 @@ const GetProductByType = (idth) => {
             />
         </section>
       )}
-
-      {/* <Divider
-          style={{
-            color: "red",
-            fontSize: 22,
-            fontWeight: "bold",
-            padding: 20,
-            background: "lightgray",
-          }}
-        >
-          HOT SALE
-        </Divider> */}
       <hr />
     </div>
   );
