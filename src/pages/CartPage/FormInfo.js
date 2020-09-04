@@ -4,18 +4,18 @@ import axios from "axios";
 export const FormInfo = () => {
   const [info, setInfo] = useState([]);
   const [data, setData] = useState([]);
+  const [dataTmp,setdataTmp]= useState(JSON.parse(localStorage.getItem("CART"))?JSON.parse(localStorage.getItem("CART")):[])
   const [datacheckout, setDatacheckout] = useState([]);
   useEffect(() => {
-    let dataCart = JSON.parse(localStorage.getItem("CART"))
+    // let dataCart = JSON.parse(localStorage.getItem("CART"))
     let tonggiaCart = JSON.parse(localStorage.getItem("SUM"))
-    setDatacheckout(dataCart)
+    setDatacheckout(dataTmp)
     setData({
         ...data,
         tonggia: tonggiaCart
     })
     
-  }, []);
-  console.log(datacheckout)
+  }, [dataTmp]);
 
   const idkh = JSON.parse(localStorage.getItem("IDKH"));
 
@@ -45,8 +45,6 @@ export const FormInfo = () => {
         idkh: info.idkh,
         tinhtrang: 'Chưa kiểm duyệt',
         ngay: today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear() 
-        // ngay: Date()
-
         })
         
   };
@@ -56,7 +54,7 @@ export const FormInfo = () => {
   useEffect(() => {
     Object.assign(data,{chitiethoadons:datacheckout});
     localStorage.setItem('HOADON',JSON.stringify(data))
-  }, []);
+  }, [data]);
 
 
 

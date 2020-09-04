@@ -1,22 +1,8 @@
-import React from "react";
+import React,{ useState } from "react";
 import { Form, Input, Button, Checkbox, message } from "antd";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { useState } from "react";
-const layout = {
-  labelCol: {
-    span: 7,
-  },
-  wrapperCol: {
-    span: 12,
-  },
-};
-const tailLayout = {
-  wrapperCol: {
-    offset: 7,
-    span: 12,
-  },
-};
+
 
 export const FormLogin = () => {
   const onFinish = (values) => {
@@ -47,7 +33,20 @@ export const FormLogin = () => {
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
-
+  const layout = {
+    labelCol: {
+      span: 7,
+    },
+    wrapperCol: {
+      span: 12,
+    },
+  };
+  const tailLayout = {
+    wrapperCol: {
+      offset: 7,
+      span: 12,
+    },
+  };
   return (
     <Form
       {...layout}

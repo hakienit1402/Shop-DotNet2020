@@ -5,23 +5,25 @@ import { FormLogin } from './FormLogin';
 import { FormInfo } from "./FormInfo";
 import context from './../../context';
 import { Confirm } from './Confirm';
+import { data } from 'jquery';
 const { Step } = Steps;
 
 export const Checkout = () => {
   const [visible, setVisible] = useState(false);
   const [stepCur, setStepCur] = useState(0);
-  const [data,setData] = useState([])
+ 
   const showModal = () => {
     setVisible(true);
     const isLogin = JSON.parse(localStorage.getItem('isLogin'));
     if (isLogin) setStepCur(1)
   };
-  useEffect(()=>{
-    let dataTmp = JSON.parse(localStorage.getItem('HOADON'))
-    setData(dataTmp)
-  },[data])
+  const data = JSON.parse(localStorage.getItem('HOADON'))
+  if (visible == false) {
+    localStorage.removeItem('HOADON')
+  }
   const handleCancel = () => {
     setVisible(false);
+    localStorage.removeItem('HOADON')
   };
   const onBack = () => {
     setStepCur(stepCur - 1);
@@ -47,21 +49,21 @@ export const Checkout = () => {
     setVisible(false);
     console.log(data)
     const key ='add';
-  //   message.loading({ content: 'Xác nhận thanh toán',key , style: {
-  //    marginTop: '14vh', fontSize:"20px"
-  //  },});
-  //   setTimeout(() => {
-  //       axios.post(`https://localhost:44315/api/hoadons`,data).then(res => { 
-  //           localStorage.removeItem('CART')
-  //           localStorage.removeItem('SUM')
-  //           localStorage.removeItem('COUNT')
-  //           localStorage.removeItem('HOADON')
-  //           message.success({ content: 'Thanh toán thành công !', key, duration: 2, style: {
-  //               marginTop: '15vh', fontSize:"20px"
-  //             }, });
-  //             window.location.reload()
-  //         })
-  //      }, 1000);
+    message.loading({ content: 'Xác nhận thanh toán',key , style: {
+     marginTop: '14vh', fontSize:"20px"
+   },});
+    setTimeout(() => {
+        axios.post(`https://localhost:44315/api/hoadons`,data).then(res => { 
+            localStorage.removeItem('CART')
+            localStorage.removeItem('SUM')
+            localStorage.removeItem('COUNT')
+            localStorage.removeItem('HOADON')
+            message.success({ content: 'Thanh toán thành công !', key, duration: 2, style: {
+                marginTop: '15vh', fontSize:"20px"
+              }, });
+              window.location.reload()
+          })
+       }, 1000);
     
    
   };

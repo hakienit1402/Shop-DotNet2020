@@ -75,11 +75,7 @@ useEffect(() => {
   localStorage.setItem("COUNT", JSON.stringify(count));
 }, [count]);
 
-// const onCheckout = () => {
-//   let data = JSON.parse(localStorage.getItem("CART"))
-//   console.log(data);
-  
-// }
+
   return (
     <div className="container cartpage">
       <Row className="cart-main">
