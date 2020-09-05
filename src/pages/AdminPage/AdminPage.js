@@ -13,6 +13,7 @@ import ProductContent from "./ProductContent/ProductContent";
 import AdminContent from "./AdminContent/AdminContent";
 import ProductTypeContent from "./ProductTypeContent/ProductTypeContent";
 import OrderContent from "./OrderContent/OrderContent";
+import { Logs } from "./Logs";
 
 
 const { Header, Sider, Content } = Layout;
@@ -70,8 +71,9 @@ class AdminPage extends Component {
                   onClick: this.toggle,
                 }
               )}
+              
             </Header>
-
+            <Logs />
             <Content
               className="site-layout-background"
               style={{
@@ -79,7 +81,10 @@ class AdminPage extends Component {
                 padding: 24,
                 minHeight: 400,
               }}
-            >
+            > 
+              {/* <div>
+              
+               </div> */}
               <Switch>
                 <Route path="/admin/productmanager">
                     <ProductContent/>

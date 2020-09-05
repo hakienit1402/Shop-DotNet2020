@@ -32,6 +32,12 @@ class LoginPage extends Component {
       .then((res) => {
         console.log(res.data);
         if (res.data == '') {alert('sai thông tin đăng nhập!!!!')} else {
+axios.post("https://localhost:44315/api/logs", {
+          idkh: res.data.user.idkh,
+          message: 'Login',
+          ip:'1.127.134.1',
+          date: Date()
+      })
         this.setState({ isLogin: true });
         localStorage.setItem("isLogin", true);
         localStorage.setItem("TOKEN", JSON.stringify(res.data.token));
@@ -39,7 +45,8 @@ class LoginPage extends Component {
         localStorage.setItem("NAME", JSON.stringify(res.data.user.hoten));
         localStorage.setItem("IDKH", JSON.stringify(res.data.user.idkh));
         this.props.history.push("/");
-        window.location.reload()}
+        window.location.reload()
+      }
       })
   };
   //
@@ -56,7 +63,7 @@ class LoginPage extends Component {
         <div className="d-flex justify-content-center h-100">
           <div className="card">
             <div className="card-header">
-              <h3 style={{ paddingTop: 20 }}>Sign In</h3>
+              <h3 style={{ paddingTop: 20 }}>Đăng nhập</h3>
               <div className="d-flex justify-content-end  social_icon">
                 <span>
                   <FacebookLogin
@@ -112,7 +119,7 @@ class LoginPage extends Component {
                 </div>
                 <div className="form-group">
                   <div className="forgot">
-                    <Link to='/checkmail'>Forgot your password?</Link>
+                    <Link to='/checkmail'>Quên mật khẩu?</Link>
                   </div>
                   <button
                     type="submit"
@@ -126,7 +133,7 @@ class LoginPage extends Component {
             </div>
             <div className="card-footer">
               <div className="signup links">
-                Don't have an account?<Link to="/register">Sign Up</Link>
+                Chưa có tài khoản ?<Link to="/register">Đăng kí</Link>
               </div>
             </div>
           </div>

@@ -3,7 +3,7 @@ import axios from "axios";
 import SweetAlert from "sweetalert-react";
 import "./../../../../node_modules/sweetalert/dist/sweetalert.css";
 // import { PlusOutlined, LoadingOutlined } from "@ant-design/icons";
-import { Modal, Upload, message, Input, Drawer, Descriptions, Row,DatePicker,Radio } from "antd";
+import { Modal, Upload, message, Input, Drawer, Descriptions, Row,DatePicker,Radio,Divider,Rate } from "antd";
 import { DataTable } from "./DataTable";
 import { Pagination } from "./Pagination";
 import { Addproduct } from "../Addpage/Addproduct";
@@ -27,7 +27,7 @@ const ProductContent = () => {
   const [dataView, setDataView] = useState([]);
   const [showAlert, setShowAlert] = useState(false);
   const [textAlert, setTextAlert] = useState("");
-  const [dataDeleteQuanlity, setDataDeleteQuanlity]= useState([])
+  const [listFeedback, setListFeedback]= useState([])
   const [content,setContent]= useState('')
   useEffect(() => {
     const fetchData = async () => {
@@ -104,6 +104,9 @@ const ProductContent = () => {
     console.log(itemView)
     setOpenView(true);
     setDataView(itemView);
+    axios.get(`https://localhost:44315/api/taikhoans/${itemView.idkh}`).then((res)=> {
+      setListFeedback(res.data.feedbacks)
+    })
   };
   const onCloseView = () => {
     setOpenView(false);
@@ -288,40 +291,39 @@ const ProductContent = () => {
           )}
         </Descriptions>
         <br/>
-         {/* <Divider
+         <Divider
             style={{
               color: "black",
               fontSize: 15,
               fontWeight: "bold",
             }}
           >
-            Danh sách hóa đơn
+            Danh sách Feedback
           </Divider>
           <table className="table table-hover table-bordered" >
               <thead style={{textAlign:'center'}}>
                     <tr >
-                        <th>Tổng giá</th>
-                        <th>Tình trạng</th> 
-                        <th>Gia</th> 
-                        <th>Môtả</th> 
+                        <th>IDSP</th>
+                        <th>Ngày</th> 
+                        <th>Nội dung</th> 
+                        <th>Rating</th> 
                     </tr>
                     </thead>
                 <tbody>
-                    {listDatasp.map((item,index)=>(
-                        <tr key={index}>
-                            <td> {item.tensp} </td>
-                            <td style={{width:110,textAlign:'center'}}> <img src={item.hinhanh} alt="" style={{width:100,height:110}}/> </td>
-                            <td> {item.gia}</td>
+                    {listFeedback.map((item,index)=>(
+                        <tr key={index} style={{textAlign:'center'}}>
+                            <td> {item.idsp} </td>
+                            <td > {item.date} </td>
+                            <td> {item.message}</td>
                             <td> 
-                                <span style={{display:"block"}}> - Màu: {item.mausac}</span>
-                                <span style={{display:"block"}}> - Màn hình: {item.manhinh}</span>
-                                <span style={{display:"block"}}> - Hệ điều hành: {item.hedieuhanh}</span>
+                              <Rate value=
+                                {item.rating} />
                             </td>
                         </tr>
                     )
                     )}
                 </tbody>
-            </table> */}
+            </table>
       </Drawer>
     </div>
   );

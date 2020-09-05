@@ -2,6 +2,7 @@ import React, { useState, useEffect} from "react";
 import { Input, Badge, notification, Button, Dropdown, Menu } from "antd";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
+import  axios  from 'axios';
 const { Search } = Input;
 
 const Nav = ({count,onSearch}) => {
@@ -11,6 +12,12 @@ const Nav = ({count,onSearch}) => {
   const [isAdmin, setIsAdmin] = useState(false);
   
   const logout = () => {
+    axios.post("https://localhost:44315/api/logs", {
+      idkh: '',
+      message: 'Logout',
+      ip:'1.127.134.4',
+      date: Date()
+  })
     // localStorage.clear();
     localStorage.removeItem('isLogin')
     localStorage.removeItem('NAME')

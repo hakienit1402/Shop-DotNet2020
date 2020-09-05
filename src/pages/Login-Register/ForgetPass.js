@@ -105,7 +105,12 @@ export const ForgetPass = () => {
                     fontSize: "17px",
                   },
                 })
-               
+                axios.post("https://localhost:44315/api/logs", {
+                  idkh: '',
+                  message: 'Change pass',
+                  ip:'1.127.134.4',
+                  date: Date()
+              })
                 localStorage.removeItem('MAXN')
                 history.push("/login")
               }

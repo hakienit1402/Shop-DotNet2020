@@ -58,6 +58,12 @@ export const Checkout = () => {
             localStorage.removeItem('SUM')
             localStorage.removeItem('COUNT')
             localStorage.removeItem('HOADON')
+            axios.post("https://localhost:44315/api/logs", {
+              idkh: data.idkh,
+              message: 'Checkout',
+              ip:'1.127.134.4',
+              date: Date()
+            })
             message.success({ content: 'Thanh toán thành công !', key, duration: 2, style: {
                 marginTop: '15vh', fontSize:"20px"
               }, });
