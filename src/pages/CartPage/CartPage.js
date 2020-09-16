@@ -87,8 +87,8 @@ useEffect(() => {
                 <tr style={{textAlign:'center'}}>
                   <th>Sản phẩm</th>
                   <th>Hình ảnh</th>
-                  <th>Price</th>
-                  <th>Quantity</th>
+                  <th>Giá</th>
+                  <th>Số lượng</th>
                   <th>Thành tiền</th>
                   <th>Xóa</th>
                 </tr>

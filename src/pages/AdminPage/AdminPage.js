@@ -21,6 +21,7 @@ const { Header, Sider, Content } = Layout;
 class AdminPage extends Component {
   state = {
     collapsed: false,
+    author: JSON.parse(localStorage.getItem("isAuthor"))
   };
 
   toggle = () => {
@@ -44,7 +45,7 @@ class AdminPage extends Component {
                 alignItems: "center",
               }}
             >
-              <Avatar size={40}>USER</Avatar>
+              <Avatar size={40}>ADMIN</Avatar>
             </div>
             <Menu mode="inline" defaultSelectedKeys={["1"]}>
               <Menu.Item key="product" icon={<UserOutlined />}>
@@ -82,10 +83,21 @@ class AdminPage extends Component {
                 minHeight: 400,
               }}
             > 
-              {/* <div>
+            {this.state.author === false ? <Switch>
+                {/* <Route path="/admin/productmanager">
+                    <ProductContent/>
+                </Route>
               
-               </div> */}
-              <Switch>
+                <Route path="/admin/producttypemanager">
+                  <ProductTypeContent />
+                </Route>
+                <Route path="/admin/adminmanager">
+                  <AdminContent />
+                </Route>
+                <Route path="/admin/ordermanager">
+                  <OrderContent />
+                </Route> */}
+              </Switch>: <Switch>
                 <Route path="/admin/productmanager">
                     <ProductContent/>
                 </Route>
@@ -99,7 +111,8 @@ class AdminPage extends Component {
                 <Route path="/admin/ordermanager">
                   <OrderContent />
                 </Route>
-              </Switch>
+              </Switch>}
+              
             </Content>
           </Layout>
         </Layout>

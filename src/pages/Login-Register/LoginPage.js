@@ -44,6 +44,11 @@ axios.post("https://localhost:44315/api/logs", {
         localStorage.setItem("ROLE", JSON.stringify(res.data.user.roles));
         localStorage.setItem("NAME", JSON.stringify(res.data.user.hoten));
         localStorage.setItem("IDKH", JSON.stringify(res.data.user.idkh));
+        if (res.data.user.roles == '0') {
+          localStorage.setItem('isAuthor', JSON.stringify(false))
+        }else {
+          localStorage.setItem('isAuthor', JSON.stringify(true))
+        }
         this.props.history.push("/");
         window.location.reload()
       }

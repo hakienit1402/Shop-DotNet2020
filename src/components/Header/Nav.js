@@ -19,6 +19,7 @@ const Nav = ({count,onSearch}) => {
       date: Date()
   })
     // localStorage.clear();
+    localStorage.setItem('isAuthor',JSON.stringify(false))
     localStorage.removeItem('isLogin')
     localStorage.removeItem('NAME')
     localStorage.removeItem('ROLE')

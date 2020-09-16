@@ -17,7 +17,7 @@ export const Logs = () => {
 
   const logList = (
     <Menu style={{width:670,overflow:'auto',height:200}}>
-        {logs.map((log)=> (
+        {logs.sort((a, b) => b.idlog - a.idlog).map((log)=> (
             
              <Menu.Item key={log.idlog} style={{height:30}}>
                  <Descriptions >
